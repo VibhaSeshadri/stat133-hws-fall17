@@ -3,7 +3,7 @@
 Repository for HW assignments of Stat 133 (Fall 2017)
 
 - Student name: Vibha Seshadri
-- Github username: vibhacal
+- Github username: VibhaSeshadri
 - Lab section: 107
 - GSI: Minchul Shin
 
