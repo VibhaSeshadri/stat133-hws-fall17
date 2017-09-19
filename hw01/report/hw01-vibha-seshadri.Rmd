@@ -13,6 +13,7 @@ load("../data/nba2017-salary-points.RData")
 ls()
 ```
 
+####A bit of data preprocessing
 ```{r simplifyMillions}
 # simplifying representation of dollar quantities stored in salary
 milSalary <- salary/1000000
@@ -33,6 +34,7 @@ position <- factor(position, labels = c("center", "power_fwd", "point_guard", "s
 table(position)
 ```
 
+####Scatterplot of `points` and `salary`
 ```{r scatterPlot}
 # creating a scatterplot to analyze the relationship between points and salary
 plot(points, milSalary, xlab = "Points", ylab = "Salary (millions)", 
@@ -41,3 +43,88 @@ plot(points, milSalary, xlab = "Points", ylab = "Salary (millions)",
 ```
 
 The scatterplot above illustrates a positive relationship between the number of `points` a player makes and his resulting `salary`. The majority of the data is clustered in the lower left corner of the scatterplot, and begins to uncluster and grow with a positive slope as players gain more than `r median(points)` total points. There are, however, many points on the graph which do not follow the positive trend of the majority of points. The most total points a player has made is `r max(points)` points, but this player does not have the highest salary. This player with `r max(points)` has a salary of $`r milSalary[which.max(points)]`. The highest salary appears to be around $`r max(milSalary)` dollars and is the salary of a player who has a total of `r points[which.max(salary)]` points.
+
+####Correlation between `points` and `salary`
+```{r manualCalc}
+# Calculating number of individuals
+n <- length(player)
+n
+
+# Calculating the mean of variable X (points)
+meanX <- (1/n) * sum(points)
+meanX
+
+# Calculating the mean of Y (salary)
+meanY <- (1/n) * sum(salary)
+meanY
+
+# Calculating variance of X (points)
+varX <- (1/(n-1)) * sum((points - meanX) ^ 2)
+varX
+
+# Calculating variance of Y (salary)
+varY <- (1/(n-1)) * sum((salary - meanY) ^ 2)
+varY
+
+# Standard deviation of X (points)
+sdX <- (varX) ^ (1/2)
+sdX
+
+# Standard deviation of Y (salary)
+sdY <- (varY) ^ (1/2)
+sdY
+
+# Covariance between X and Y
+covXY <- (1/(n-1)) * sum((points - meanX) * (salary-meanY))
+covXY
+
+# Correlation between X and Y
+corXY <- covXY/(sdY * sdX)
+corXY
+```
+
+####Simple Linear Regression
+```{r linRegress}
+# Calculating b1, slope
+b1 <- corXY * (sdY/sdX)
+
+# Calculating b0, intercept
+b0 <- meanY - b1 * meanX
+
+# Calculating y-hat, predicted salary
+yHat <- b0 + b1 * points
+
+# Summary statistics of vector yHat
+summary(yHat)
+```
+
+The above code chunk contains the regression equation `ŷ = b0 + b1X`. You can interpret the slope, `b1`, as the amount, in dollars, a player's salary will increase for each point they gain in their career in the NBA. You can interpret the intercept, `b0`, as the amount a player makes in dollars when they begin their career, or when they have earned 0 points total in the NBA.
+
+```{r predictSalary}
+# Predicted salary for player with 0 points
+b0 + b1 * 0
+
+# Predicted salary for player with 100 points
+b0 + b1 * 100
+
+# Predicted salary for player with 500 points
+b0 + b1 * 500
+
+# Predicted salary for player with 1000 points
+b0 + b1 * 1000
+
+# Predicted salary for player with 2000 points
+b0 + b1 * 2000
+```
+
+####Plotting the regression line
+```{r plotRegress}
+pReg <- plot(points, milSalary, xlab = "Points", ylab = "Salary (millions)", 
+     main = "Relationship Between Points and Salary", col = c("light blue"),
+     cex.main = "1", cex.lab = "1", pch = 16)
+# reg <- lm(points ~ salary, data = yHat)
+# coeff = coefficients(reg)
+# abline(reg, a = b0, b = b1, col = c("black"), lwd = 2)
+abline(a = b0, b = b1, col = c("black"), lwd = 2)
+```
+
