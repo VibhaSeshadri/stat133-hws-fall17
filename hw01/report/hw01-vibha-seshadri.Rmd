@@ -1,0 +1,43 @@
+---
+title: 'Homework 1: Summarizing Variables'
+author: "Vibha Seshadri"
+date: "September 18, 2017"
+output: github_document
+---
+
+```{r loadVars}
+# loading data
+load("../data/nba2017-salary-points.RData")
+
+# listing available objects
+ls()
+```
+
+```{r simplifyMillions}
+# simplifying representation of dollar quantities stored in salary
+milSalary <- salary/1000000
+milSalary <- round(milSalary, digits = 2)
+```
+
+```{r expAsInt}
+# creating a new vector that holds numeric representation of experience, previously a vector of type char
+experience <- replace(experience, experience == "R", "0")
+experience <- as.integer(experience)
+```
+
+```{r posFactor}
+# changing variable position from character vector to factor with more descriptive labels
+position <- factor(position, labels = c("center", "power_fwd", "point_guard", "small_fwd", "shoot_guard"))
+
+# calculate frequency of positions in factor, position
+table(position)
+```
+
+```{r scatterPlot}
+# creating a scatterplot to analyze the relationship between points and salary
+plot(points, milSalary, xlab = "Points", ylab = "Salary (millions)", 
+     main = "Relationship Between Points and Salary", col = c("light blue"),
+     cex.main = "1", cex.lab = "1", pch = 16)
+```
+
+The scatterplot above illustrates a positive relationship between the number of `points` a player makes and his resulting `salary`. The majority of the data is clustered in the lower left corner of the scatterplot, and begins to uncluster and grow with a positive slope as players gain more than `r median(points)` total points. There are, however, many points on the graph which do not follow the positive trend of the majority of points. The most total points a player has made is `r max(points)` points, but this player does not have the highest salary. This player with `r max(points)` has a salary of $`r milSalary[which.max(points)]`. The highest salary appears to be around $`r max(milSalary)` dollars and is the salary of a player who has a total of `r points[which.max(salary)]` points.
