@@ -147,3 +147,52 @@ summary(yHat)
     ##  1509886  2844728  5206372  6187014  8184097 23397875
 
 The above code chunk contains the regression equation `ŷ = b0 + b1X`. You can interpret the slope, `b1`, as the amount, in dollars, a player's salary will increase for each point they gain in their career in the NBA. You can interpret the intercept, `b0`, as the amount a player makes in dollars when they begin their career, or when they have earned 0 points total in the NBA.
+
+``` r
+# Predicted salary for player with 0 points
+b0 + b1 * 0
+```
+
+    ## [1] 1509886
+
+``` r
+# Predicted salary for player with 100 points
+b0 + b1 * 100
+```
+
+    ## [1] 2365554
+
+``` r
+# Predicted salary for player with 500 points
+b0 + b1 * 500
+```
+
+    ## [1] 5788226
+
+``` r
+# Predicted salary for player with 1000 points
+b0 + b1 * 1000
+```
+
+    ## [1] 10066566
+
+``` r
+# Predicted salary for player with 2000 points
+b0 + b1 * 2000
+```
+
+    ## [1] 18623247
+
+#### Plotting the regression line
+
+``` r
+pReg <- plot(points, milSalary, xlab = "Points", ylab = "Salary (millions)", 
+     main = "Relationship Between Points and Salary", col = c("light blue"),
+     cex.main = "1", cex.lab = "1", pch = 16)
+# reg <- lm(points ~ salary, data = yHat)
+# coeff = coefficients(reg)
+# abline(reg, a = b0, b = b1, col = c("black"), lwd = 2)
+abline(a = b0, b = b1, col = c("black"), lwd = 2)
+```
+
+![](hw01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/plotRegress-1.png)
