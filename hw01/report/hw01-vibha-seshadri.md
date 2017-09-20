@@ -72,12 +72,12 @@ meanX
     ## [1] 546.6054
 
 ``` r
-# Calculating the mean of Y (salary)
-meanY <- (1/n) * sum(salary)
+# Calculating the mean of Y (milSalary)
+meanY <- (1/n) * sum(milSalary)
 meanY
 ```
 
-    ## [1] 6187014
+    ## [1] 6.186689
 
 ``` r
 # Calculating variance of X (points)
@@ -88,12 +88,12 @@ varX
     ## [1] 239136.2
 
 ``` r
-# Calculating variance of Y (salary)
-varY <- (1/(n-1)) * sum((salary - meanY) ^ 2)
+# Calculating variance of Y (milSalary)
+varY <- (1/(n-1)) * sum((milSalary - meanY) ^ 2)
 varY
 ```
 
-    ## [1] 4.318973e+13
+    ## [1] 43.19524
 
 ``` r
 # Standard deviation of X (points)
@@ -109,15 +109,15 @@ sdY <- (varY) ^ (1/2)
 sdY
 ```
 
-    ## [1] 6571890
+    ## [1] 6.572309
 
 ``` r
 # Covariance between X and Y
-covXY <- (1/(n-1)) * sum((points - meanX) * (salary-meanY))
+covXY <- (1/(n-1)) * sum((points - meanX) * (milSalary-meanY))
 covXY
 ```
 
-    ## [1] 2046212512
+    ## [1] 2046.424
 
 ``` r
 # Correlation between X and Y
@@ -125,7 +125,7 @@ corXY <- covXY/(sdY * sdX)
 corXY
 ```
 
-    ## [1] 0.6367043
+    ## [1] 0.6367296
 
 #### Simple Linear Regression
 
@@ -143,8 +143,8 @@ yHat <- b0 + b1 * points
 summary(yHat)
 ```
 
-    ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
-    ##  1509886  2844728  5206372  6187014  8184097 23397875
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##   1.509   2.844   5.206   6.187   8.184  23.399
 
 The above code chunk contains the regression equation `ŷ = b0 + b1X`. You can interpret the slope, `b1`, as the amount, in dollars, a player's salary will increase for each point they gain in their career in the NBA. You can interpret the intercept, `b0`, as the amount a player makes in dollars when they begin their career, or when they have earned 0 points total in the NBA.
 
@@ -153,46 +153,44 @@ The above code chunk contains the regression equation `ŷ = b0 + b1X`. You can i
 b0 + b1 * 0
 ```
 
-    ## [1] 1509886
+    ## [1] 1.509077
 
 ``` r
 # Predicted salary for player with 100 points
 b0 + b1 * 100
 ```
 
-    ## [1] 2365554
+    ## [1] 2.364833
 
 ``` r
 # Predicted salary for player with 500 points
 b0 + b1 * 500
 ```
 
-    ## [1] 5788226
+    ## [1] 5.78786
 
 ``` r
 # Predicted salary for player with 1000 points
 b0 + b1 * 1000
 ```
 
-    ## [1] 10066566
+    ## [1] 10.06664
 
 ``` r
 # Predicted salary for player with 2000 points
 b0 + b1 * 2000
 ```
 
-    ## [1] 18623247
+    ## [1] 18.62421
 
 #### Plotting the regression line
 
 ``` r
-pReg <- plot(points, milSalary, xlab = "Points", ylab = "Salary (millions)", 
+plot(points, milSalary, xlab = "Points", ylab = "Salary (millions)", 
      main = "Relationship Between Points and Salary", col = c("light blue"),
      cex.main = "1", cex.lab = "1", pch = 16)
-# reg <- lm(points ~ salary, data = yHat)
-# coeff = coefficients(reg)
-# abline(reg, a = b0, b = b1, col = c("black"), lwd = 2)
-abline(a = b0, b = b1, col = c("black"), lwd = 2)
+abline(a = b0, b = b1, col = "black", lwd = 2)
+lines(lowess(points, milSalary), col = "brown", lwd = 2)
 ```
 
 ![](hw01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/plotRegress-1.png)
