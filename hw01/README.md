@@ -19,6 +19,3 @@ I found the latex way to do this, but I couldn’t find a way to make it show up
 
 **References:**
 I used the `?` and `??` commands in the R console when I needed a more comprehensive explanation for what a function did. I also went to office hours when I was confused about something, and the `?` and `??` commands as well as any webpages I found were not enough for me to understand the concept. Examples of functions I used the help function with in the R Console: `abline()`, `lowess()`, `scatterplot3D()`, `boxplot()`, `text()`, `lines()`
-
-**Special Note to the Graders:**
-For part 7, "Exploring Position and Experience" I have included a `ylab` argument in my call to the boxplot function, however my y label is cut off from the md file. I tried to change the `boxwex` of my boxplot, but that did not bring the y label into view. 
