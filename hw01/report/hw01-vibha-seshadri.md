@@ -235,7 +235,6 @@ rSquared
 #### Exploring `position` and `experience` in relation to `milSalary`
 
 ``` r
-library(scatterplot3d)
 # Creating scatterplot relating milSalary to experience
 plot(experience, milSalary, xlab = "Experience (years)", ylab = "Salary (millions)", 
      main = "Relationship Between Experience and Salary", col = c("maroon"),
@@ -243,35 +242,28 @@ plot(experience, milSalary, xlab = "Experience (years)", ylab = "Salary (million
 lines(lowess(experience, milSalary), col = "brown", lwd = 2)
 ```
 
-![](hw01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/considerExperience-1.png)
+![](hw01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/scatterPlotLine-1.png)
+
+Since there is not a clear pattern in the scatterplot relating `experience` (in years) and `salary` (in millions), there does not appear to be a relationship between a NBA basketball player's experience playing professionally and his salary. The points in this scatterplot are evenly spread both horizontally and vertically.
 
 ``` r
+library(scatterplot3d)
 # Creating 3D scatterplot to explore relationship between points, experience, and salary
 scatterplot3d(points, experience, milSalary, color = "blue", xlab = "Points", zlab = "Salary (millions)", ylab = "Experience (years)")
 ```
 
-![](hw01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/considerExperience-2.png)
+![](hw01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/scatterplot3D-1.png)
+
+The shape of the 3D scatterplot resembles the shape of the 2D scatterplot between `points` and `salary`. The 3D scatterplot looks as if the `experience` data points do not influence the shape of the plot to be different than the shape of the plot in the aforementioned 2D scatterplot.
 
 ``` r
 # Creating a boxplot exploring the relationship between position and milSalary
 boxplot(milSalary ~ position, xlab =  "Position", ylab = "Salary (Millions)")
 ```
 
-![](hw01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/considerExperience-3.png)
-
-##### Descriptive analysis of the previous scatterplot, scatterplot3D, and boxplot
-
--   **Scatterplot**
-
-Since there is not a clear pattern in the scatterplot relating `experience` (in years) and `salary` (in millions), there does not appear to be a relationship between a NBA basketball player's experience playing professionally and his salary. The points in this scatterplot are evenly spread both horizontally and vertically.
-
--   **Conditional boxplot**
+![](hw01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/boxplot-1.png)
 
 Although all the boxplots are skewed towards larger salaries and have varying ranges, since the median of the five boxplots are essentially the same, it seems that a player's position does not have an impact on the salary they make.
-
--   **3D scatterplot**
-
-The shape of the 3D scatterplot resembles the shape of the 2D scatterplot between `points` and `salary`. The 3D scatterplot looks as if the `experience` data points do not influence the shape of the plot to be different than the shape of the plot in the aforementioned 2D scatterplot.
 
 #### Comments and Reflections
 

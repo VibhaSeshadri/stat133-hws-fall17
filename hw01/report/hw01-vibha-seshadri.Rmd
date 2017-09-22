@@ -149,33 +149,28 @@ rSquared
 ```
 
 ####Exploring `position` and `experience` in relation to `milSalary`
-```{r considerExperience}
-library(scatterplot3d)
+```{r scatterPlotLine}
 # Creating scatterplot relating milSalary to experience
 plot(experience, milSalary, xlab = "Experience (years)", ylab = "Salary (millions)", 
      main = "Relationship Between Experience and Salary", col = c("maroon"),
      cex.main = "1", cex.lab = "1", pch = 16)
 lines(lowess(experience, milSalary), col = "brown", lwd = 2)
+```
 
+Since there is not a clear pattern in the scatterplot relating `experience` (in years) and `salary` (in millions), there does not appear to be a relationship between a NBA basketball player's experience playing professionally and his salary. The points in this scatterplot are evenly spread both horizontally and vertically.
+```{r scatterplot3D}
+library(scatterplot3d)
 # Creating 3D scatterplot to explore relationship between points, experience, and salary
 scatterplot3d(points, experience, milSalary, color = "blue", xlab = "Points", zlab = "Salary (millions)", ylab = "Experience (years)")
+```
 
+The shape of the 3D scatterplot resembles the shape of the 2D scatterplot between `points` and `salary`. The 3D scatterplot looks as if the `experience` data points do not influence the shape of the plot to be different than the shape of the plot in the aforementioned 2D scatterplot.
+```{r boxplot}
 # Creating a boxplot exploring the relationship between position and milSalary
 boxplot(milSalary ~ position, xlab =  "Position", ylab = "Salary (Millions)")
 ```
 
-#####Descriptive analysis of the previous scatterplot, scatterplot3D, and boxplot
-* **Scatterplot**
-
-Since there is not a clear pattern in the scatterplot relating `experience` (in years) and `salary` (in millions), there does not appear to be a relationship between a NBA basketball player's experience playing professionally and his salary. The points in this scatterplot are evenly spread both horizontally and vertically.
-
-* **Conditional boxplot**
-
 Although all the boxplots are skewed towards larger salaries and have varying ranges, since the median of the five boxplots are essentially the same, it seems that a player's position does not have an impact on the salary they make.
-
-* **3D scatterplot**
-
-The shape of the 3D scatterplot resembles the shape of the 2D scatterplot between `points` and `salary`. The 3D scatterplot looks as if the `experience` data points do not influence the shape of the plot to be different than the shape of the plot in the aforementioned 2D scatterplot.
 
 ####Comments and Reflections
 I think that it is really amazing you can create comprehensive graphs and plots using R. That being said, sometimes it's difficult to get the graphs to look as you want them to. For instance, I spent a lot of time trying to get abline to work because I had calculated the slope and intercept using `salary`, but was placing the regression line on a plot which had a Y scale of salary in millions. I had to go back and change any line of code where I used `salary` to use `milSalary` instead. When I was stuck on an aspect of this assignment, I would just google my question and see how others had gone about solving the same problems I was having, go to office hours, or go over the concept with a friend. I think the hardest part of the assignment was figuring out how to get the regression line to appear on the scatterplot showcasing the relationship between `points` and `salary` as well as the accompanying text to appear under the regression line. 
