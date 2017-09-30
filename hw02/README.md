@@ -1,3 +1,4 @@
+# HW02 - Basics of Data Frames
 The purpose of this HW is to start working with data frames.
 
 For this homework, I did not use Google or Stack Overflow as much because many of the questions and confusions I had were answered just be looking at our past labs.
