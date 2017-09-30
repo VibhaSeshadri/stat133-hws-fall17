@@ -6,8 +6,8 @@ September 29, 2017
 ``` r
 # load packages
 library(ggplot2)
-library(readr)
 library(dplyr)
+library(readr)
 ```
 
 #### Importing the data in R
@@ -187,15 +187,21 @@ summary(dat1$EFF)
     ##  -0.600   5.452   9.090  10.137  13.247  33.840
 
 ``` r
-# Making histogram
+# Making histogram of EFF
 hist(dat1$EFF, xlab = "EFF", ylab = "Frequency", main = "Histogram of Efficiency (EFF)")
 ```
 
 ![](hw02-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/EFF-1.png)
 
 ``` r
-# Displaying player name, team, salary, and EFF value of the top-10 players in decreasing order
-slice(arrange(select(dat1, Player, Team, Salary, EFF), desc(EFF)), 1:10)
+# Displaying player name, team, salary, and EFF value of the top-10 players, by EFF, in decreasing order
+slice(
+  arrange(
+    select(dat1, Player, Team, Salary, EFF), 
+    desc(EFF)
+    ),
+  1:10
+  )
 ```
 
     ## # A tibble: 10 x 4
@@ -222,7 +228,6 @@ select(filter(dat1, EFF < 0), Player)
 
 ``` r
 # Using cor() to compute the correlation coefficients between EFF and all the variables used in the EFF formula
-
 PTS_cor <- cor(dat1$PTS, dat1$EFF)
 REB_cor <- cor(dat1$REB, dat1$EFF)
 AST_cor <- cor(dat1$AST, dat1$EFF)
@@ -231,12 +236,18 @@ BLK_cor <- cor(dat1$BLK, dat1$EFF)
 Missed_FG_cor <- cor(dat1$Missed_FG, dat1$EFF) * -1
 Missed_FT_cor <- cor(dat1$Missed_FT, dat1$EFF) * -1 
 TO_cor <- cor(dat1$TO, dat1$EFF) * -1
+
+# Creating data frame with computed correlations
 core_data_frame <- data.frame(
-  correlations = c('Points', 'Rebounds', 'Assists', 'Steal', 'Block', 'Missed_FG', 'Missed_FT', 'Turnover'),
+  correlations = c('Points', 'Rebounds', 'Assists', 'Steals', 'Blocks', 'Missed_FG', 'Missed_FT', 'Turnover'),
   values = c(PTS_cor, REB_cor, AST_cor, STL_cor, BLK_cor, Missed_FG_cor, Missed_FT_cor, TO_cor)
 )
+
+# Arranging data frame in decreasing order
 core_data_frame <- arrange(core_data_frame, desc(core_data_frame$values))
-barplot(core_data_frame$values, names.arg = core_data_frame$correlations, main = "Correlation Between Player Stats and EFF", width = 1, xlim = c(0,10), cex.names = 0.5, ylim = c(-1, 1))
+
+# Creating bar chart with data in core_data_frame
+barplot(core_data_frame$values, names.arg = core_data_frame$correlations, main = "Correlation Between Player Stats and EFF", width = 1, xlim = c(0,10), cex.names = 0.5, ylim = c(-1, 1), col = c(rep("light blue",5), rep("pink", 3)))
 ```
 
 ![](hw02-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/EFF-2.png)
@@ -244,7 +255,7 @@ barplot(core_data_frame$values, names.arg = core_data_frame$correlations, main =
 #### Effeciency and Salary
 
 ``` r
-# Creating scatterplot of data frame, dat1, between Efficiency and Salary
+# Creating scatterplot of Efficiency and Salary from dataframe, dat1
 ggplot(data = dat1, aes(x = EFF, y = Salary), xlab = Efficiency, ylab = Salary) +
   geom_point() +
   geom_smooth(method = loess)
@@ -259,14 +270,12 @@ cor(dat1$EFF, dat1$Salary)
 
     ## [1] 0.655624
 
+Since the linear correlation coefficient, 0.655624, between `Efficiency` and `Salary` for all NBA players is positive, and the data points move in the direction of greater EFF and Salary value, there seems to be a positive relationship between a player's `Efficiency` and `Salary`.
+
 ``` r
 # Taking a look at more established players and their salaries
 players2 <- filter(dat1, MPG >= 20)
-```
 
-Since the linear correlation coefficient, 0.655624, between `Efficiency` and `Salary` for all NBA players is positive, and the data points in the scatterplot are grouped close to each other, there seems to be a positive relationship between a player's `Efficiency` and `Salary`.
-
-``` r
 # Creating scatterplot of data frame, players2, between Efficiency and Salary
 ggplot(data = players2, aes(x = EFF, y = Salary), xlab = Efficiency, ylab = Salary) +
   geom_point() +
@@ -283,3 +292,7 @@ cor(players2$EFF, players2$Salary)
     ## [1] 0.5367224
 
 The linear correlation coefficient, 0.5367224, between `Efficiency` and `Salary` for more established NBA players is positive but less than the linear correlation coefficient between `Efficiency` and `Salary` of all NBA players.
+
+#### Comments and Reflections
+
+I am really enjoying learning about and manipulating data frames because I'm really beginning to understand how data is organized. I think the hardest part of this assignment was importing the data correctly because even though we had seen it in class and lab, I feel like it didn't really click until I actually got a chance to do it myself, and figure out why certain error statements appear and when. For instance, I was having a hard time creating the data frame using `read_csv()` because I forgot that factors don't have their own abbreviation for `col_type`. I also had a hard time getting all the bar labels to show up on the barchart, even though I had done it before. I think this is due to the fact that you always have to manipulate the chart differently to make sure the data set you are working with appears nicely on the chart. I thought using `dplyr` was really fun, and it didn't seem to hard because it's a much easier way to manipulate data frames than the method we used earlier with just indexing and slicing. I mainly needed help with importing the data, which I got by working with friends and talking through what goes into importing data. This assignment took me a couple of hours, but it was fun!
