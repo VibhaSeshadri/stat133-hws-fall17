@@ -1,0 +1,32 @@
+---
+title: "nba2017-player-statistics-dictionary.md"
+author: "Vibha Seshadri"
+date: "September 29, 2017"
+output: github_document
+---
+
+### Data Dictionary of Data Regarding NBA players
+The data described in this dictionary contains information about NBA players on 30 major teams. The data is described in more detail below.
+
+Quick Facts
+- There are 441 rows in the data, each containing information about one NBA player
+- There are 24 columns, described in detail below
+
+`r Player` (Character Vector) First and last names of player - 
+`r Team` (Character) 3 Letter team abbreviation of the team player belongs to
+`r Position` (Character) Player's position
+`r Experience` (Character) Years of experience in NBA, R stands for Rookie
+`r Salary` (Integer) Player salary in dollars
+`r Rank` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
+`r Player` First and last names of player
