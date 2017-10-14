@@ -1,4 +1,4 @@
-####HW03 - Ranking NBA Teams
+#### HW03 - Ranking NBA Teams
 
 The purpose of this HW is to continue working with data frames, produce plots, work with a complex file structure, and get an introduction to PCA.
 
