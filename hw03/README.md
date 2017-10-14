@@ -1,8 +1,8 @@
-HW03 - Ranking NBA Teams
+####HW03 - Ranking NBA Teams
 
 The purpose of this HW is to continue working with data frames, produce plots, work with a complex file structure, and get an introduction to PCA.
 
-Some links to websites I used when stuck on a problem:
+**Some links to websites I used when stuck on a problem:**
 
 How to describe PCs: https://stats.stackexchange.com/questions/102658/why-does-pca-maximize-total-variance-of-the-projection
 
@@ -14,4 +14,4 @@ How to calculate the cumulative proportions without hardcoding: https://stackove
 
 I also used the ggplot2 cheat sheet for help when creating ggplots
 
-References: `?prcomp()`, Lecture slides on importing data and PCA
+**References:** `?prcomp()`, Lecture slides on importing data and PCA
