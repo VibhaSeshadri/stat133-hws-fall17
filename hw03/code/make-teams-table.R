@@ -1,9 +1,13 @@
-#===============================================================================
-#Title:
-#Description:
-#Inputs:
-#Outputs:
-#===============================================================================
+"===============================================================================
+Title: Data Preperation for HW03
+Description: Cleaning and creating data to use in the RMD file for HW03 in
+            which we create ggplots relating to the data and conduct 
+            PCA with the cleaned data. Also creating summary and image outputs
+            in the process.
+Inputs: nba2017-stats.csv, nba2017-roster.csv
+Outputs: nba2017-teams.csv, efficiency-summary.txt, teams-summary.txt,
+         teams_star_plot.pdf, experience_salary.pdf
+==============================================================================="
 
 # load packages
 library(readr)
@@ -33,9 +37,6 @@ sink()
 merged_tbl <- left_join(stat, roster)
 
 # Creating data frame teams
-cols <- c("team", "experience", "salary", "points3_made", "points2_made", 
-          "points1_made", "points", "off_rebounds", "def_rebounds",
-          "assists", "steals", "blocks", "turnovers", "fouls", "efficiency")
 teams <- merged_tbl %>% group_by(team) %>%
                                     summarise(
                                       experience = round(sum(experience), digits = 2),
