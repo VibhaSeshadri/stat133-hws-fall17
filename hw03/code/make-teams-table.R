@@ -27,3 +27,12 @@ stat <- mutate(stat, efficiency = (points + rebounds + assists + steals + blocks
 sink(file = "output/efficiency-summary.txt")
 summary(stat$efficiency)
 sink()
+
+# Joining Stat dataframe and Roster together
+merged_tbl <- left_join(stat, roster)
+
+# Creating data frame teams
+cols <- c("team", "experience", "salary", "points3_made", "points2_made", 
+          "points1_made", "points", "off_rebounds", "def_rebounds",
+          "assists", "steals", "blocks", "turnovers", "fouls", "efficiency")
+teams <- merged_tbl %>% group_by(team) %>% select(cols)
