@@ -5,3 +5,51 @@ date: "October 13, 2017"
 output: github_document
 ---
 
+```{r loadStuff}
+library(readr)
+library(ggplot2)
+```
+
+**Importing teams data**
+```{r imptdata}
+teams <- read_csv("../data/nba2017-teams.csv")
+```
+
+#### Ranking of Teams
+**Basic Rankings**
+```{r br_salary}
+# Arranging teams by salary in decreasing order
+rank_salary <- teams %>% arrange(desc(salary))
+
+# Creatng a horizontal bar chart based on salary
+ggplot(rank_salary, aes(x = reorder(team, salary), y = salary/1000000)) +
+  geom_bar(stat='identity') + 
+  labs(x = "Team", y = "Salary (in Millions)") +
+  geom_hline(aes(yintercept = mean(salary/1000000)), colour = "red", lwd = 2) + 
+  coord_flip()
+```
+
+```{r br_points}
+# Arranging teams by points in decreasing order
+rank_points <- teams %>% arrange(desc(points))
+
+# Creatng a horizontal bar chart based on points
+ggplot(rank_points, aes(x = reorder(team, points), y = points)) +
+  geom_bar(stat='identity') + 
+  labs(x = "Team", y = "Points") +
+  geom_hline(aes(yintercept = mean(points)), colour = "red", lwd = 2) + 
+  coord_flip()
+```
+
+```{r br_efficiency}
+# Arranging teams by efficiency in decreasing order
+rank_eff <- teams %>% arrange(desc(efficiency))
+
+# Creatng a horizontal bar chart based on efficiency
+ggplot(rank_eff, aes(x = reorder(team, efficiency), y = efficiency)) +
+  geom_bar(stat='identity') + 
+  labs(x = "Team", y = "Efficiency") +
+  geom_hline(aes(yintercept = mean(efficiency)), colour = "red", lwd = 2) + 
+  coord_flip()
+```
+

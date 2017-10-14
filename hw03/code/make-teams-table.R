@@ -8,6 +8,7 @@
 # load packages
 library(readr)
 library(dplyr)
+library(ggplot2)
 
 # Creating data frame for nba2017-stats.csv
 stat <- read_csv('data/nba2017-stats.csv')
@@ -35,4 +36,38 @@ merged_tbl <- left_join(stat, roster)
 cols <- c("team", "experience", "salary", "points3_made", "points2_made", 
           "points1_made", "points", "off_rebounds", "def_rebounds",
           "assists", "steals", "blocks", "turnovers", "fouls", "efficiency")
-teams <- merged_tbl %>% group_by(team) %>% select(cols)
+teams <- merged_tbl %>% group_by(team) %>%
+                                    summarise(
+                                      experience = round(sum(experience), digits = 2),
+                                      salary = round(sum(salary), digits = 2),
+                                      points3 = sum(points3_made),
+                                      points2 = sum(points2_made),
+                                      free_throws = sum(points1_made),
+                                      points = sum(points),
+                                      off_rebounds = sum(off_rebounds),
+                                      def_rebounds = sum(def_rebounds),
+                                      assists = sum(assists),
+                                      steals = sum(steals),
+                                      blocks = sum(blocks),
+                                      turnovers = sum(turnovers),
+                                      fouls = sum(fouls),
+                                      efficiency = sum(efficiency)
+                                    )
+
+# Sending teams summary to output
+sink(file = "output/teams-summary.txt")
+summary(teams)
+sink()
+
+# Writing CSV of teams data to output
+write_csv(teams, path = "data/nba2017-teams.csv")
+
+# Create a star plot of teams
+pdf(file = "images/teams_star_plot.pdf")
+stars(teams[ ,-1], labels = teams$team)
+dev.off()
+
+# Create a ggplot scatterplot between experience and salary
+gplot <- ggplot(teams, aes(x = experience, y = salary)) +
+  geom_point() + geom_label(aes(label = team))
+ggsave("images/experience_salary.pdf", plot = gplot)
