@@ -1,0 +1,7 @@
+---
+title: "HW3: Ranking NBA Teams"
+author: "Vibha Seshadri"
+date: "October 13, 2017"
+output: github_document
+---
+
