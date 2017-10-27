@@ -1,0 +1,25 @@
+---
+title: 'Post01: Dplyr and SQL, What makes them unique?'
+author: "Vibha Seshadri"
+date: "October 23, 2017"
+output: html_document
+---
+
+![](https://azure.microsoft.com/svghandler/sql-database/?width=600&height=315) ![](https://d33wubrfki0l68.cloudfront.net/071952491ec4a6a532a3f70ecfa2507af4d341f9/c167c/images/hex-dplyr.png)
+#### Introduction
+
+*Data Manipulation*. *Data Analytics*. *Data _____ *. Let's just say *data* is a huge buzzword these days. But data is more than just a buzzword. As more and more companies and organizations focus on data collection, manipulation, and analysis, more people are learning how to use different Data related tools. I am currently in a STAT133, a course here at UC Berkeley which focuses on Concepts in Computing with Data. A few weeks ago, we learned about a handy package in R created by Hadley Wickham called `dplyr`. `Dyplr` provides functions which one can use in replacement of base R indexing and subsetting when analyzing and manipulating data frames. The best part is that `Dyplr` is easy to use, easy to learn, and extremely powerful! But when should one use `dyplr` as opposed to a querying language such as `SQL` when working with data? This post aims to explore the pros and cons of both `dyplr` and `SQL`, explain when one should be used instead of the other, and highlight situations in which both could be used.
+
+#### Motivation
+
+
+#### Background
+
+#### Examples
+
+#### Discussion
+
+#### Conclusions
+
+#### References
+

@@ -1,0 +1,125 @@
+---
+title: 'Post01: Dplyr and SQL, What makes them unique?'
+author: "Vibha Seshadri"
+date: "October 23, 2017"
+output: html_document
+---
+```{r echo = FALSE}
+# Load knitr so we can render the images at the top nicely using include_graphics
+library(knitr)
+
+# Load the data sets library for our examples later in the post
+library(datasets)
+
+# Load dyplr so we can manipulate the data in the dataset
+library(dplyr)
+```
+
+```{r, fig.width = 2, echo = FALSE}
+# Small fig.width
+include_graphics("../images/sql.png")
+include_graphics("../images/dplyr.png")
+```
+
+#### Introduction
+
+*Data Manipulation*. *Data Analytics*. *Data _____ *. Let's just say *data* is a huge buzzword these days. But data is more than just a buzzword. As more and more companies and organizations focus on data collection, manipulation, and analysis, more people are learning how to use different Data related tools. I am currently in a STAT133, a course here at UC Berkeley which focuses on Concepts in Computing with Data. A few weeks ago, we learned about a handy package in R created by Hadley Wickham called `dplyr`. `dplyr` provides functions which one can use in replacement of base R indexing and subsetting when analyzing and manipulating data frames. The best part is that `dplyr` is easy to use, easy to learn, and extremely powerful! But when should one use `dplyr` as opposed to a querying language such as `SQL` when working with data? This post aims to explore the pros and cons of both `dplyr` and `SQL`, explain when one should be used instead of the other, and highlight situations in which both could be used.
+
+#### Motivation
+###### Why did I choose this topic
+I decided to write a post about the comparisons of `dplyr` and `SQL` because when I first started learning about `dplyr`, the first question I had was "when would I use one over the other?" The reason I wondered this was because I had heard a lot about `SQL` and had even used it in a previous class, but I had never heard of or used `dplyr`. After learning how to use `dplyr` I was baffled as to why anyone would ever use `SQL`! `Dplyr` was easier to learn and use, so I decided to research the differences and similarities between the two so in the future, I would know in which scenarios I could use `dplyr` over `SQL` and vice versa.
+
+#### Background
+###### So exactly what exactly *are* `SQL` and `dplyr`?
+
+Before we can answer that question, let's define two terms.
+
+**Data Set**
+A data set is a collection of related discrete data that can be accessed by a user and manipulated or read. The term data set was invented by IBM to mean something similar to a file. Data sets are stored in data structures, such as a database (read below), or CSV file.
+
+**Database** 
+A database is a type of *data structure*. It can store tables of information on a computer. There are many forms of Databases: Hierarchical databases, Object Oriented Databases, Network Databases, and Relational Databases. SQL is used with relational databases. You can access the tables in a relational database and the contents of these tables using a querying languages. You can also create new tables from the tables in the relational database, manipulate the data in these tables using a querying languages. Almost all companies store multitudes of company financial and employee data in secure databases. Databases are also used for the backend of many websites to store data gathered from or about website users because it allows easy manipulation and use of the data back on the website. Before most databases were "flat" meaning they could only be used in a manner similar to  how spreadsheets are used today. Luckily, today, we have more complex databases and Database Management Systems which allow more complex and secure querying of databases, sometimes even between multiple databases! Modern databases also allow us to store media such as pictures and videos in databases as opposed to just text and numeric values.
+
+Now that we understand how data can be stored and reprented, let's talk about `SQL` and `dplyr`!
+
+Let's start with `SQL`. To learn about `SQL` I did some research on [W3Schools](https://www.w3schools.com/sql/sql_intro.asp), a great website for anyone who wants to teach themselves a new programming language! I also watched a youtube video.After reading what I had to learn, you should do some of your own research! It's quite fun! 
+
+`SQL` stands for Strucutred Querying Language. It is mainly used with RDMS's such as mySQL, Oracle, MS SQL Server, Microsoft Access, etc. `SQL` allows you to insert, search, update, delete, join, filter, aggregate, select, etc. in your *database* to organize, update, query, and access your data. You can even create new databases using `SQL` and set permissions on who can and can't access certain databses. This latter part is especially important in helping companies keep their employee, financial, legal, etc data secure. There are many different versions of the `SQL` language, and some companies even have their own prorietary version of `SQL` The different versions of `SQL` vary from just syntax to what they can do in total. `SQL` can be used in the back end of a website to store data that needs to be displayed or collected. In order to actually connect a RDMS that is queried using `SQL`, you need to access you database using server side scripts such as `PHP` or `ASP`.
+
+Now that we know a little bit about `SQL` let's learn about `dplyr`! After we learn about `dplyr` we will compare and contrast `SQL` and `dplyr`.
+
+`dplyr` is an `R` package created by Hadley Wickham. `dplyr` is a great tool for manipulating *data sets*. It's fast and connects very easily and well with languages like `SQL`, and `Google biquery`. `dplyr` also allows you to work with *large* data bases without having to import the data base into R since `dplyr` can connect with databases such as PostgreSQL. This is different from before `dplyr` when all datasets had to be imported into R to be used in data manipulation. Additionally, `dplyr` provides individual functions to handle things like filtering, aggregating, selecting, summarising, etc. Each of these functions only have on individual function but they can be easily connected together by using `%>%`, the piping operator which takes the output from one function call and applies it to the next. Additionally, `dyplyr` doesn't change the contents of your data, it only manipulates it so you need to save to a new data frame or reassign to your data frame the output of the data manipulation. 
+
+#### Compare and Contrast
+###### OK I get it, but what's different between `dplyr` and `SQL`?
+
+Plain and simple, `dplyr` is meant to be used for data analysis and `SQL` is the tool meant to be used when storing, managing, and querying large data sets. Use `SQL` to organize your data, and `dplyr` to analyze and clean the data in `SQL`. `SQL` was not created or commercialized as a data analysis tool, it was created and commercialized as a data management tool. Additionally, R when combined with `dplyr` makes data analysis cleaner and easier. What takes 10 to 15 lines in `SQL` can take 1 or 2 lines in `dplyr`.
+
+#### Examples
+###### Let's see some `dplyr` and `SQL` in action!
+
+We will be using the dataset `UCBAdmissions` included in the package. This dataset contains the "Aggregate data on applicants to graduate school at Berkeley for the six largest departments in 1973 classified by admission and sex."
+
+Let's learn a little bit about the data before we begin manipulating it.
+
+```{r}
+# Save the data in a R object
+cal <- UCBAdmissions;
+
+# Check if the data is in a dataframe, if it isn't then make it one
+if (!class(cal) == "data.frame") {
+  cal <- as.data.frame.table(cal, stringsAsFactors = FALSE)
+}
+
+# Explore the structure of the data
+str(cal)
+
+# Dimensions of the data
+nrow(cal)
+ncol(cal)
+
+# Column and row names of data set
+colnames(cal)
+rownames(cal)
+
+# First few elements of the data
+head(cal, n = 5);
+
+# Summary statistics of the data
+summary(cal)
+```
+
+Let's see how many total graduate male appliclants were admitted to UC Berkeley in 1973 and how many total female graduate female applicants were admitted to UC Berkeley in 1973 using `dplyr`.
+```{r}
+# Total Male Accepted
+male <- cal %>% filter(Gender == "Male") %>% filter(Admit == "Admitted") %>% select(Freq) %>% summarise(sum(Freq))
+
+# Total Female Accepted
+female <- cal %>% filter(Gender == "Female") %>% filter(Admit == "Admitted") %>% select(Freq) %>% summarise(sum(Freq))
+
+# How many more men than women were accepted?
+male - female
+```
+
+How would we do the same thing in `SQL?`
+```{sql}
+select count(Freq) where Gender = 'Male' and Admit = 'Admitted'; 
+```
+
+#### Discussion
+
+#### Conclusions
+
+#### References
+[How I made the SQL and dplyr images at the top render nicely](http://www.zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/#use-fig.width-and-fig.height-for-r-generated-figures-only)
+[Background information on Data Sets](http://whatis.techtarget.com/definition/data-set)
+[Background information on Databases](https://techterms.com/definition/database)
+[What is a Database and SQL?](https://www.youtube.com/watch?v=FR4QIeZaPeM)
+[W3Schools](https://www.w3schools.com/sql/sql_intro.asp)
+[Introductory information on dyplr](https://blog.rstudio.com/2014/01/17/introducing-dplyr/)
+[Four Reasons You Should Check Out the R package dyplr](http://zevross.com/blog/2014/03/26/four-reasons-why-you-should-check-out-the-r-package-dplyr-3/)
+[Why SQL is not for analysis, but dyplr is](https://blog.exploratory.io/why-sql-is-not-for-analysis-but-dplyr-is-5e180fef6aa7)
+
+
+
+
