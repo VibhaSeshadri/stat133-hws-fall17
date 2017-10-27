@@ -102,7 +102,7 @@ male - female
 ```
 
 How would we do the same thing in `SQL?`
-```{sql}
+```{sql EVAL = FALSE}
 select count(Freq) where Gender = 'Male' and Admit = 'Admitted'; 
 ```
 
