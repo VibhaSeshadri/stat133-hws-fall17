@@ -4,7 +4,7 @@ author: "Vibha Seshadri"
 date: "October 23, 2017"
 output: html_document
 ---
-```{r echo = FALSE}
+```{r message = FALSE, warning = FALSE, include=FALSE}
 # Load knitr so we can render the images at the top nicely using include_graphics
 library(knitr)
 
@@ -13,6 +13,9 @@ library(datasets)
 
 # Load dyplr so we can manipulate the data in the dataset
 library(dplyr)
+
+# Load ggplot so we can plot results of data analysis
+library(ggplot2)
 ```
 
 ```{r, fig.width = 2, echo = FALSE}
@@ -21,16 +24,16 @@ include_graphics("../images/sql.png")
 include_graphics("../images/dplyr.png")
 ```
 
-#### Introduction
+### Introduction
 
 *Data Manipulation*. *Data Analytics*. *Data _____ *. Let's just say *data* is a huge buzzword these days. But data is more than just a buzzword. As more and more companies and organizations focus on data collection, manipulation, and analysis, more people are learning how to use different Data related tools. I am currently in a STAT133, a course here at UC Berkeley which focuses on Concepts in Computing with Data. A few weeks ago, we learned about a handy package in R created by Hadley Wickham called `dplyr`. `dplyr` provides functions which one can use in replacement of base R indexing and subsetting when analyzing and manipulating data frames. The best part is that `dplyr` is easy to use, easy to learn, and extremely powerful! But when should one use `dplyr` as opposed to a querying language such as `SQL` when working with data? This post aims to explore the pros and cons of both `dplyr` and `SQL`, explain when one should be used instead of the other, and highlight situations in which both could be used.
 
-#### Motivation
-###### Why did I choose this topic
+### Motivation
+#### Why did I choose this topic
 I decided to write a post about the comparisons of `dplyr` and `SQL` because when I first started learning about `dplyr`, the first question I had was "when would I use one over the other?" The reason I wondered this was because I had heard a lot about `SQL` and had even used it in a previous class, but I had never heard of or used `dplyr`. After learning how to use `dplyr` I was baffled as to why anyone would ever use `SQL`! `Dplyr` was easier to learn and use, so I decided to research the differences and similarities between the two so in the future, I would know in which scenarios I could use `dplyr` over `SQL` and vice versa.
 
-#### Background
-###### So exactly what exactly *are* `SQL` and `dplyr`?
+### Background
+#### So exactly what exactly *are* `SQL` and `dplyr`?
 
 Before we can answer that question, let's define two terms.
 
@@ -50,13 +53,14 @@ Now that we know a little bit about `SQL` let's learn about `dplyr`! After we le
 
 `dplyr` is an `R` package created by Hadley Wickham. `dplyr` is a great tool for manipulating *data sets*. It's fast and connects very easily and well with languages like `SQL`, and `Google biquery`. `dplyr` also allows you to work with *large* data bases without having to import the data base into R since `dplyr` can connect with databases such as PostgreSQL. This is different from before `dplyr` when all datasets had to be imported into R to be used in data manipulation. Additionally, `dplyr` provides individual functions to handle things like filtering, aggregating, selecting, summarising, etc. Each of these functions only have on individual function but they can be easily connected together by using `%>%`, the piping operator which takes the output from one function call and applies it to the next. Additionally, `dyplyr` doesn't change the contents of your data, it only manipulates it so you need to save to a new data frame or reassign to your data frame the output of the data manipulation. 
 
-#### Compare and Contrast
-###### OK I get it, but what's different between `dplyr` and `SQL`?
+### Compare and Contrast
+#### OK I get it, but what's different between `dplyr` and `SQL`?
 
 Plain and simple, `dplyr` is meant to be used for data analysis and `SQL` is the tool meant to be used when storing, managing, and querying large data sets. Use `SQL` to organize your data, and `dplyr` to analyze and clean the data in `SQL`. `SQL` was not created or commercialized as a data analysis tool, it was created and commercialized as a data management tool. Additionally, R when combined with `dplyr` makes data analysis cleaner and easier. What takes 10 to 15 lines in `SQL` can take 1 or 2 lines in `dplyr`.
 
-#### Examples
-###### Let's see some `dplyr` and `SQL` in action!
+### Examples
+##### Let's see some `dplyr` in action!
+Since `dplyr` is meant for data analysis let's see how it can be used!
 
 We will be using the dataset `UCBAdmissions` included in the package. This dataset contains the "Aggregate data on applicants to graduate school at Berkeley for the six largest departments in 1973 classified by admission and sex."
 
@@ -92,33 +96,105 @@ summary(cal)
 Let's see how many total graduate male appliclants were admitted to UC Berkeley in 1973 and how many total female graduate female applicants were admitted to UC Berkeley in 1973 using `dplyr`.
 ```{r}
 # Total Male Accepted
-male <- cal %>% filter(Gender == "Male") %>% filter(Admit == "Admitted") %>% select(Freq) %>% summarise(sum(Freq))
+male <- cal %>% filter(Gender == "Male") %>% 
+  filter(Admit == "Admitted") %>% 
+  select(Freq) %>% 
+  summarise(sum(Freq))
 
 # Total Female Accepted
-female <- cal %>% filter(Gender == "Female") %>% filter(Admit == "Admitted") %>% select(Freq) %>% summarise(sum(Freq))
+female <- cal %>% filter(Gender == "Female") %>% 
+  filter(Admit == "Admitted") %>% 
+  select(Freq) %>% 
+  summarise(sum(Freq))
 
 # How many more men than women were accepted?
 male - female
 ```
 
-How would we do the same thing in `SQL?`
-```{sql EVAL = FALSE}
-select count(Freq) where Gender = 'Male' and Admit = 'Admitted'; 
+To do something similar in SQL we would have had to had written something along the following lines. 
+```r
+Declare @mSum int
+Declare @fSum int
+select sum(freq) as @mSum from cal where Gender = 'Male' and Admit = 'Admitted';
+select sum(freq) as @fSum from cal where Gender = 'Male' and Admit = 'Admitted;
+@mSum - @fSum
+```
+You may be wondering, well that's not all that bad. Why exactly is `dplyr` a better choice for data analysis again?
+
+Imagine a scenario in which we would want to calculate the percentages of Males and Females accepted into and rejected from the graduate program in 1973 and then graph the results that we find. Well this is where `dplyr` is perfect! While much of what we may want to do to get these percentages can be done in `SQL` too, the fact that `dplyr`is an `R` package makes it simple for us to use other `R` packages such as `ggplot2` to graph and illustrate our findings. To graph the results we find from using `SQL` we would have to ensure the environment we are using while coding in `SQL` has the capabilities to graph data. Even then, doing so is not as simple and elegant as it is in `R`. Because using `dplyr` is the better choice for the following example, the analysis and calculations for the question posed above is done in `dplyr`.
+```{r}
+# Function which calculates percentage of applicants accepted in DEPT
+calAdmit <- function (df, dept) {
+  accept <- (df$Freq[df$Admit == 'Admitted' & df$Dept == dept]) 
+  total <- sum(df$Freq[df$Dept == dept])
+  accept/total
+}
+
+# Function which calculates percentage of applicants rejected in DEPT
+calReject <- function (df, dept) {
+  reject <- (df$Freq[df$Admit == 'Rejected' & df$Dept == dept])
+  total <- sum(df$Freq[df$Dept == dept])
+  reject/total
+}
+
+# Creating data frame of percentages of males accepted and rejected by Dept
+males <- cal %>% filter(Gender == 'Male')
+mP <- males %>% group_by(Dept) %>% 
+  summarise(Accepted = calAdmit(males, Dept), 
+            Rejected = calReject(males, Dept))
+
+# Creating data frame of percentages of females accepted and rejected by Dept
+females <- cal %>% filter(Gender == 'Female')
+fP <- females %>% group_by(Dept) %>% 
+  summarise(Accepted = calAdmit(females, Dept), 
+            Rejected = calReject(females, Dept))
+
+# Percentages of males accepted and rejected by dept
+mP
+# Percentages of females accepted and rejected by dept
+fP
 ```
 
-#### Discussion
+Let's see what percentage of males were accepted into the different departments compared to the percentage of females accepted.
+```{r}
+### Joining the tables that hold the percentages of males and females accepted 
+### and rejected into different departments
 
-#### Conclusions
+df.list <- list(a=mP, b=fP)
+accept <- stack(lapply(df.list, `[[`, "Accepted"))
+dept <- stack(lapply(df.list, `[[`, "Dept"))
+joined <- data.frame(Department = as.character(dept$values), 
+                     Accepted = as.numeric(accept$values), 
+                     Gender = as.character(dept$ind), 
+                     stringsAsFactors = FALSE)
+joined$Gender[joined$Gender == 'a'] <- "Male"
+joined$Gender[joined$Gender == 'b'] <- "Female"
+
+# contents of 'joined'
+joined
+
+# Plotting the data in the joined table
+ggplot(joined, aes(x = Department, y = Accepted, fill = Gender)) +
+  geom_bar(position="dodge", stat = "Identity") + 
+  ggtitle("Comparison of Graduate Student Acceptance to UCB Departments") + 
+  ylab("Proportion Accepted")
+```
+
+
+### Conclusions
+#### So what's the take away?
+Both `dplyr` and `SQL` are great tools to be familiar with if you are interested in data; however, it's important to understand the distnction of when both should be used. Use `SQL` if you want to organize, store, and query your data. Use `dplyr` for any data analysis you may want to perform.
 
 #### References
-[How I made the SQL and dplyr images at the top render nicely](http://www.zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/#use-fig.width-and-fig.height-for-r-generated-figures-only)
-[Background information on Data Sets](http://whatis.techtarget.com/definition/data-set)
-[Background information on Databases](https://techterms.com/definition/database)
-[What is a Database and SQL?](https://www.youtube.com/watch?v=FR4QIeZaPeM)
-[W3Schools](https://www.w3schools.com/sql/sql_intro.asp)
-[Introductory information on dyplr](https://blog.rstudio.com/2014/01/17/introducing-dplyr/)
-[Four Reasons You Should Check Out the R package dyplr](http://zevross.com/blog/2014/03/26/four-reasons-why-you-should-check-out-the-r-package-dplyr-3/)
-[Why SQL is not for analysis, but dyplr is](https://blog.exploratory.io/why-sql-is-not-for-analysis-but-dplyr-is-5e180fef6aa7)
+- [How I made the SQL and dplyr images at the top render nicely](http://www.zevross.com/blog/2017/06/19/tips-and-tricks-for-working-with-images-and-figures-in-r-markdown-documents/#use-fig.width-and-fig.height-for-r-generated-figures-only)
+- [Background information on Data Sets](http://whatis.techtarget.com/definition/data-set)
+- [Background information on Databases](https://techterms.com/definition/database)
+- [What is a Database and SQL?](https://www.youtube.com/watch?v=FR4QIeZaPeM)
+- [W3Schools](https://www.w3schools.com/sql/sql_intro.asp)
+- [Introductory information on dyplr](https://blog.rstudio.com/2014/01/17/introducing-dplyr/)
+- [Four Reasons You Should Check Out the R package dyplr](http://zevross.com/blog/2014/03/26/four-reasons-why-you-should-check-out-the-r-package-dplyr-3/)
+- [Why SQL is not for analysis, but dyplr is](https://blog.exploratory.io/why-sql-is-not-for-analysis-but-dplyr-is-5e180fef6aa7)
+- [How I created the side by side bar chart](https://stackoverflow.com/questions/23677901/plot-dodging-bars-from-multiple-dataframes-with-ggplot2)
 
 
 
