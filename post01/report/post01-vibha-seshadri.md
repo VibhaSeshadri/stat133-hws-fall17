@@ -256,7 +256,7 @@ ggplot(joined, aes(x = Department, y = Accepted, fill = Gender)) +
   ylab("Proportion Accepted")
 ```
 
-![](post01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-6-1.png)
+![](post01-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-7-1.png)
 
 ### Conclusions
 

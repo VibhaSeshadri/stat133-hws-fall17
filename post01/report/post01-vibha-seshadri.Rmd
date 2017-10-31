@@ -172,7 +172,9 @@ joined$Gender[joined$Gender == 'b'] <- "Female"
 
 # contents of 'joined'
 joined
+```
 
+```{r}
 # Plotting the data in the joined table
 ggplot(joined, aes(x = Department, y = Accepted, fill = Gender)) +
   geom_bar(position="dodge", stat = "Identity") + 
