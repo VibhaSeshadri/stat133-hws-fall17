@@ -5,6 +5,9 @@
 # Output(s):
 ####################################################
 
+# Loading library stringr to use in print_stats
+library(stringr)
+
 # The function remove_missing takes in input vector VEC
 # and returns VEC without missing values.
 remove_missing <- function(vec) {
@@ -212,9 +215,9 @@ print_stats <- function(lst) {
                 names(lst)[1], lst[1]), sep = "\n")
   for (i in 2:length(lst)) {
     if (i != length(lst)) {
-      str <- cat(paste(str, sprintf("## %s : %.4f", 
-                                names(lst)[i], lst[i])), 
-                                sep = "\n")
+      str <- cat(str_pad(paste(str, sprintf("## %s : %.4f", 
+                                names(lst)[i], lst[i])), width = 9, side = "both", pad = " "), 
+                                sep = "\n") 
     } else {
       str <- cat(paste(str, sprintf("## %s : %.4f", 
                                     names(lst)[i], lst[i])))

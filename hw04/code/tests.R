@@ -10,7 +10,7 @@ library(testthat)
 
 # Unit test for remove_missing to ensure that NA values
 # in vectors passed in are being removed
-context("testing remove_missing()")
+context("testing remove_missing")
 test_that("NA values are removed from vector", {
 expect_equal(remove_missing(c(1, 2, 3, NA, 5)), c(1, 2, 3, 5))
 expect_equal(remove_missing(c("one", "two", "stop here", NA)),

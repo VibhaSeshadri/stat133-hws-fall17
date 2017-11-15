@@ -81,16 +81,78 @@ for (i in 1:nrow(rawscores)) {
 }
 rawscores$Quiz <- qz
 
+# Adding variable Lab to rawscores which is comprised
+# of a student's lab score based on their attendance
+lab <- c()
+for (i in 1:nrow(rawscores)) {
+  ls <- score_lab(as.numeric(rawscores[i, 10]))
+  lab <- c(lab, ls)
+}
+rawscores$Lab <- lab
+
 # Adding a variable Overall to rawscores which is comprised of values
 # already in rawscores, but weighted according to the grading scale for the class
 overall <- c()
 for (i in 1:nrow(rawscores)) {
-  grade <- (rawscores$Homework[i] * .3) + 
-          (score_lab(rawscores$ATT[i]) * .1) +
+  rs <- (rawscores$Homework[i] * .3) + 
+          (rawscores$Lab[i] * .1) +
           (rawscores$Quiz[i] * .15) +
           (rawscores$Test1[i] * .2) +
           (rawscores$Test2[i] * .25)
-  print(grade)
-  overall <- c(overall, grade)
+  overall <- c(overall, rs)
 }
 rawscores$Overall <- overall
+
+# Add a variable Grade to rawscores that is determined
+# based on a students overall score
+grade <- c()
+for (i in 1:nrow(rawscores)) {
+  overall <- rawscores$Overall[i]
+  print(overall)
+  if (overall >= 0 & overall < 50) {
+    grade <- c(grade, "F")
+  } else if (overall >= 50 & overall < 60) {
+    grade <- c(grade, "D")
+  } else if (overall >= 60 & overall < 70) {
+    grade <- c(grade, "C-")
+  } else if (overall >= 70 & overall < 77.5) {
+    grade <- c(grade, "C")
+  } else if (overall >= 77.5 & overall < 79.5) {
+    grade <- c(grade, "C+")
+  } else if (overall >= 79.5 & overall < 82) {
+    grade <- c(grade, "B-")
+  } else if (overall >= 82 & overall < 86) {
+    grade <- c(grade, "B")
+  } else if (overall >= 86 & overall < 88) {
+    grade <- c(grade, "B+")
+  } else if (overall >= 88 & overall < 90) {
+    grade <- c(grade, "A-")
+  } else if (overall >= 90 & overall < 95) {
+    grade <- c(grade, "A")
+  } else if (overall >= 95 & overall <= 100) {
+    grade <- c(grade, "A+")
+  }
+}
+rawscores$Grade <- grade
+
+# Sink the summary stats of Lab, Homework, Quiz, Test1, Test2, and Overall
+file_names <- c("Lab-stats.txt", "Homework-stats.txt", "Quiz-stats.txt",
+  "Test1-stats.txt", "Test2-stats.txt", "Overall-stats.txt")
+data <- list(rawscores$Lab, rawscores$Homework, rawscores$Quiz,
+  rawscores$Test1, rawscores$Test2, rawscores$Overall)
+for (i in 1:length(file_names)) {
+  print(file_names[i])
+  print(data[i])
+  sink(paste0('../output/', file_names[i]))
+  print_stats(summary_stats(data[[i]]))
+  sink()
+}
+
+# Sink structure of rawscores, which is now a dataframe of clean scores
+sink('../output/summary-cleanscores.txt')
+str(rawscores)
+sink()
+
+# Export rawscores, which is now a data frame of clean scores
+# as a CSV file
+write_csv(rawscores, path = '../data/cleandata/cleanscores.csv')
