@@ -133,10 +133,74 @@ test_that("count_missing returns the correct number of NAs in input vector", {
 # Unit test for summary_stat to ensure that the correct statistics
 # are being returned for the input vector
 context("testing summary_stats")
-test_that("summary_stats returns the correct value", {
+test_that("summary_stats returns correct stats", {
   vec <- c(1, 2, 3, 4, 5, NA)
   expect_equal(summary_stats(vec)$range, 4)
   expect_equal(summary_stats(vec)$missing, 1)
   expect_equal(summary_stats(vec)$median, 3)
   expect_equal(summary_stats(vec)$average, 3)
+})
+
+# Unit test for print_stats to ensure that summary statistics
+# are being printed in the proper format.
+context("testing print_stats")
+test_that("print_stats prints in proper format", {
+  #WRITE TESTS HERE VIBHA OKKKKKKKK
+})
+
+# Unit test for rescale100 to ensure that all vectors
+# in an input vector are properly rescaled out of 100
+# based on the min and max given in arguments to function.
+context("testing rescale100")
+test_that("rescale100 rescales vector properly", {
+  normal <- c(1, 2, 3, 4, 5)
+  varied <- c(15, 30, 25, 50)
+  unanimous <- c(0, 0, 0, 0)
+  expect_equal(rescale100(normal, 0, 10), c(10, 20, 30, 40, 50))
+  expect_equal(rescale100(varied, 0, 50), c(30, 60, 50, 100))
+  expect_equal(rescale100(unanimous, 0, 13), c(0, 0, 0, 0))
+  expect_equal(rescale100(normal, 2, 4), c(-50, 0, 50, 100, 150))
+})
+
+# Unit test for drop_lowest to ensure that the smallest
+# value in a vector is dropped from a vector
+context("testing drop_lowest")
+test_that("drop_lowest actually drops the smallest value from a vector", {
+  expect_equal(drop_lowest(c(1, 2, 3)), c(2, 3))
+  expect_equal(drop_lowest(c(0, 0, 0)), c(0, 0))
+  expect_equal(drop_lowest(c(-150, 120, 40, 0)), c(120, 40, 0))
+  expect_equal(drop_lowest(c(2.9, 3, 4)), c(3, 4))
+})
+
+# Unit test for score_homework to ensure that the correct average
+# for a vector of homework scores is returned.
+context("testing score_homework")
+test_that("score_homework returns correct average 
+          when drop is and isnt true", {
+            expect_equal(score_homework(c(1, 2, 3, 4)), 2.5)
+            expect_equal(score_homework(c(1, 2, 3, 4), TRUE), 3)
+            expect_equal(score_homework(c(100, 100)), 100)
+            expect_equal(score_homework(c(100, 100), TRUE), 100)
+})
+
+# Unit test for score_quiz to ensure that the correct average
+# for a vector of quiz scores is returned.
+context("testing score_quiz")
+test_that("score_quiz returns correct average 
+          when drop is and isnt true", {
+            expect_equal(score_quiz(c(1, 2, 3, 4)), 2.5)
+            expect_equal(score_quiz(c(1, 2, 3, 4), TRUE), 3)
+            expect_equal(score_quiz(c(100, 100)), 100)
+            expect_equal(score_quiz(c(100, 100), TRUE), 100)
+            })
+
+# Unit test for score_lab to ensure that correct corresponding
+# lab score is returned based on attendance input passed in
+context("testing score_lab")
+test_that("score_lab returns correct lab score", {
+  expect_equal(score_lab(12), 100)
+  expect_equal(score_lab(11), 100)
+  expect_equal(score_lab(6), 0)
+  expect_equal(score_lab(5), 0)
+  expect_equal(score_lab(9), 60)
 })

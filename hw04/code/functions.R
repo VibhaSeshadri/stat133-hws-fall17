@@ -205,7 +205,8 @@ summary_stats <- function(vec) {
 
 # The function print_stats returns a nicely 
 # formatted string of all of the summary_stats
-# for the input vector VEC
+# for the input vector VEC 
+# FIX THIS FIX THIS FIX THIS
 print_stats <- function(lst) {
   str <- cat(sprintf(" ## %s : %.4f", 
                 names(lst)[1], lst[1]), sep = "\n")
@@ -220,4 +221,61 @@ print_stats <- function(lst) {
     }
   }
   str
+}
+
+# The function rescale100 takes in a vector VEC
+# and a min value XMIN and max value XMAX and uses
+# these min and max boundaries to rescale the 
+# inputs of VEC to be some number out of 100
+rescale100 <- function(vec, xmin, xmax) {
+  100 * ((vec - xmin) / (xmax - xmin))
+}
+
+# The function drop_lowest takes in a vector
+# VEC and drops the lowest value in VEC
+# and returns a vector of length one less than VEC
+drop_lowest <- function(vec) {
+  min <- vec[which.min(vec)]
+  for(i in 1:length(vec)) {
+    if (vec[i] == min) {
+      vec <- vec[-i]
+      return(vec)
+    }
+  }
+}
+
+# The function score_homework returns the average score
+# of the vector VEC passed in. If DROP = TRUE
+# the lowest value of VEC is removed before the average
+# score is computed.
+score_homework <- function(vec, drop = FALSE) {
+  if (drop == TRUE) {
+    vec <- drop_lowest(vec)
+  }
+  get_average(vec)
+}
+
+# The function score_quiz returns the average score
+# of the vector VEC passed in. If DROP = TRUE
+# the lowest value of VEC is removed before the average
+# score is computed.
+score_quiz <- function(vec, drop = FALSE) {
+  if (drop == TRUE) {
+    vec <- drop_lowest(vec)
+  }
+  get_average(vec)
+}
+
+# The function score_lab returns the lab score corresponding
+# to the numeric input indicating the student's lab 
+# ATTENDANCE 
+score_lab <- function(attendance) {
+  switch(as.character(attendance),
+         "12" = 100,
+         "11" = 100,
+         "10" = 80,
+         "9" = 60,
+         "8" = 40,
+         "7" = 20,
+         0)
 }
