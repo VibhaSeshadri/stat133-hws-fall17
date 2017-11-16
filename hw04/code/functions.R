@@ -214,9 +214,9 @@ print_stats <- function(lst) {
   for (i in 1:length(lst)) {
     hash <- "## "
     names <- names(lst)[i]
-    gap_before <- paste0(rep(" ", 12 - nchar(names(lst)[i])), collapse = '')
+    gap_before <- paste0(rep(" ", 13 - nchar(names(lst)[i])), collapse = '')
     value <- sprintf("%.4f", lst[i])
-    print(noquote(paste0("## ", names, gap_before, ": ", value)))
+    cat(noquote(paste0("## ", names, gap_before, ": ", value)), sep = "\n")
   }
 }
 
@@ -232,13 +232,15 @@ rescale100 <- function(vec, xmin, xmax) {
 # VEC and drops the lowest value in VEC
 # and returns a vector of length one less than VEC
 drop_lowest <- function(vec) {
-  min <- vec[which.min(vec)]
-  for(i in 1:length(vec)) {
-    if (vec[i] == min) {
-      vec <- vec[-i]
-      return(vec)
-    }
-  }
+  vec <- sort(vec)
+  vec[-1]
+  #min <- vec[which.min(vec)]
+  #for(i in 1:length(vec)) {
+    #if (vec[i] == min) {
+      #vec <- vec[-i]
+      #return(vec)
+    #}
+  #}
 }
 
 # The function score_homework returns the average score

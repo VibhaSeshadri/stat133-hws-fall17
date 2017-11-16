@@ -1,11 +1,11 @@
- ## minimum : 10.4167
- ## maximum : 100.0000
- ## range : 89.5833
- ## percentile10 : 44.7847
- ## percentile90 : 91.2500
- ## median : 74.4792
- ## average : 70.7730
- ## stdev : 18.5081
- ## quartile1 : 59.5486
- ## quartile3 : 84.8611
- ## missing : 0.0000
+## minimum      : 13.8889
+## maximum      : 100.0000
+## range        : 86.1111
+## percentile10 : 55.2500
+## percentile90 : 96.0741
+## median       : 81.8056
+## average      : 77.8643
+## stdev        : 17.1317
+## quartile1    : 69.5833
+## quartile3    : 90.1852
+## missing      : 0.0000

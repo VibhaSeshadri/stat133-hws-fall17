@@ -1,3 +1,5 @@
+
+> str(rawscores)
 Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	334 obs. of  16 variables:
  $ HW1: num  100 85 87.5 92.5 32.5 75 90 92.5 82.5 75 ...
  $ HW2: num  100 95 100 100 NA 85 100 95 85 95 ...
@@ -52,179 +54,213 @@ Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	334 obs. of  16 variables:
   ..$ default: list()
   .. ..- attr(*, "class")= chr  "collector_guess" "collector"
   ..- attr(*, "class")= chr "col_spec"
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 62.5000
- ## percentile90 : 95.0000
- ## median : 85.0000
- ## average : 81.4323
- ## stdev : 15.9908
- ## quartile1 : 75.0000
- ## quartile3 : 92.5000
- ## missing : 9.0000NULL
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 70.0000
- ## percentile90 : 100.0000
- ## median : 95.0000
- ## average : 88.2341
- ## stdev : 15.9450
- ## quartile1 : 80.5000
- ## quartile3 : 100.0000
- ## missing : 20.0000NULL
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 77.5000
- ## percentile90 : 100.0000
- ## median : 95.0000
- ## average : 90.9997
- ## stdev : 13.9676
- ## quartile1 : 87.5000
- ## quartile3 : 100.0000
- ## missing : 11.0000NULL
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 60.5000
- ## percentile90 : 100.0000
- ## median : 90.0000
- ## average : 84.6026
- ## stdev : 18.3898
- ## quartile1 : 77.5000
- ## quartile3 : 100.0000
- ## missing : 22.0000NULL
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 76.7500
- ## percentile90 : 100.0000
- ## median : 96.2500
- ## average : 92.1270
- ## stdev : 13.9293
- ## quartile1 : 90.0000
- ## quartile3 : 100.0000
- ## missing : 19.0000NULL
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 72.0000
- ## percentile90 : 100.0000
- ## median : 94.0000
- ## average : 87.9904
- ## stdev : 18.5648
- ## quartile1 : 86.0000
- ## quartile3 : 99.0000
- ## missing : 21.0000NULL
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 65.0000
- ## percentile90 : 100.0000
- ## median : 92.0000
- ## average : 85.9183
- ## stdev : 19.7436
- ## quartile1 : 80.6250
- ## quartile3 : 100.0000
- ## missing : 28.0000NULL
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 68.0000
- ## percentile90 : 100.0000
- ## median : 90.0000
- ## average : 86.0815
- ## stdev : 18.7604
- ## quartile1 : 80.0000
- ## quartile3 : 100.0000
- ## missing : 21.0000NULL
- ## minimum : 0.0000
- ## maximum : 100.0000
- ## range : 100.0000
- ## percentile10 : 70.0000
- ## percentile90 : 100.0000
- ## median : 90.0000
- ## average : 86.9022
- ## stdev : 15.7427
- ## quartile1 : 80.0000
- ## quartile3 : 100.0000
- ## missing : 22.0000NULL
- ## minimum : 3.0000
- ## maximum : 12.0000
- ## range : 9.0000
- ## percentile10 : 10.0000
- ## percentile90 : 12.0000
- ## median : 12.0000
- ## average : 11.4012
- ## stdev : 1.3801
- ## quartile1 : 11.0000
- ## quartile3 : 12.0000
- ## missing : 0.0000NULL
- ## minimum : 0.0000
- ## maximum : 12.0000
- ## range : 12.0000
- ## percentile10 : 6.0000
- ## percentile90 : 12.0000
- ## median : 10.0000
- ## average : 9.4535
- ## stdev : 2.2448
- ## quartile1 : 8.0000
- ## quartile3 : 11.0000
- ## missing : 1.0000NULL
- ## minimum : 0.0000
- ## maximum : 18.0000
- ## range : 18.0000
- ## percentile10 : 7.0000
- ## percentile90 : 18.0000
- ## median : 13.0000
- ## average : 12.6192
- ## stdev : 4.1763
- ## quartile1 : 10.0000
- ## quartile3 : 16.0000
- ## missing : 11.0000NULL
- ## minimum : 0.0000
- ## maximum : 20.0000
- ## range : 20.0000
- ## percentile10 : 7.0000
- ## percentile90 : 18.0000
- ## median : 14.0000
- ## average : 13.0701
- ## stdev : 4.0933
- ## quartile1 : 11.0000
- ## quartile3 : 16.0000
- ## missing : 20.0000NULL
- ## minimum : 0.0000
- ## maximum : 20.0000
- ## range : 20.0000
- ## percentile10 : 10.0000
- ## percentile90 : 20.0000
- ## median : 17.0000
- ## average : 15.9714
- ## stdev : 4.2241
- ## quartile1 : 14.0000
- ## quartile3 : 19.0000
- ## missing : 19.0000NULL
- ## minimum : 14.4000
- ## maximum : 80.0000
- ## range : 65.6000
- ## percentile10 : 42.4000
- ## percentile90 : 74.9600
- ## median : 64.0000
- ## average : 60.7310
- ## stdev : 12.7058
- ## quartile1 : 55.2000
- ## quartile3 : 69.6000
- ## missing : 0.0000NULL
- ## minimum : 12.6000
- ## maximum : 90.0000
- ## range : 77.4000
- ## percentile10 : 41.0850
- ## percentile90 : 80.4150
- ## median : 66.6000
- ## average : 63.9903
- ## stdev : 15.7235
- ## quartile1 : 56.7000
- ## quartile3 : 75.1500
- ## missing : 0.0000NULL
+
+> print_stats(summary_stats(rawscores$HW1))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 62.5000
+## percentile90 : 95.0000
+## median       : 85.0000
+## average      : 81.4323
+## stdev        : 15.9908
+## quartile1    : 75.0000
+## quartile3    : 92.5000
+## missing      : 9.0000
+
+> print_stats(summary_stats(rawscores$HW2))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 70.0000
+## percentile90 : 100.0000
+## median       : 95.0000
+## average      : 88.2341
+## stdev        : 15.9450
+## quartile1    : 80.5000
+## quartile3    : 100.0000
+## missing      : 20.0000
+
+> print_stats(summary_stats(rawscores$HW3))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 77.5000
+## percentile90 : 100.0000
+## median       : 95.0000
+## average      : 90.9997
+## stdev        : 13.9676
+## quartile1    : 87.5000
+## quartile3    : 100.0000
+## missing      : 11.0000
+
+> print_stats(summary_stats(rawscores$HW4))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 60.5000
+## percentile90 : 100.0000
+## median       : 90.0000
+## average      : 84.6026
+## stdev        : 18.3898
+## quartile1    : 77.5000
+## quartile3    : 100.0000
+## missing      : 22.0000
+
+> print_stats(summary_stats(rawscores$HW5))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 76.7500
+## percentile90 : 100.0000
+## median       : 96.2500
+## average      : 92.1270
+## stdev        : 13.9293
+## quartile1    : 90.0000
+## quartile3    : 100.0000
+## missing      : 19.0000
+
+> print_stats(summary_stats(rawscores$HW6))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 72.0000
+## percentile90 : 100.0000
+## median       : 94.0000
+## average      : 87.9904
+## stdev        : 18.5648
+## quartile1    : 86.0000
+## quartile3    : 99.0000
+## missing      : 21.0000
+
+> print_stats(summary_stats(rawscores$HW7))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 65.0000
+## percentile90 : 100.0000
+## median       : 92.0000
+## average      : 85.9183
+## stdev        : 19.7436
+## quartile1    : 80.6250
+## quartile3    : 100.0000
+## missing      : 28.0000
+
+> print_stats(summary_stats(rawscores$HW8))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 68.0000
+## percentile90 : 100.0000
+## median       : 90.0000
+## average      : 86.0815
+## stdev        : 18.7604
+## quartile1    : 80.0000
+## quartile3    : 100.0000
+## missing      : 21.0000
+
+> print_stats(summary_stats(rawscores$HW9))
+## minimum      : 0.0000
+## maximum      : 100.0000
+## range        : 100.0000
+## percentile10 : 70.0000
+## percentile90 : 100.0000
+## median       : 90.0000
+## average      : 86.9022
+## stdev        : 15.7427
+## quartile1    : 80.0000
+## quartile3    : 100.0000
+## missing      : 22.0000
+
+> print_stats(summary_stats(rawscores$ATT))
+## minimum      : 3.0000
+## maximum      : 12.0000
+## range        : 9.0000
+## percentile10 : 10.0000
+## percentile90 : 12.0000
+## median       : 12.0000
+## average      : 11.4012
+## stdev        : 1.3801
+## quartile1    : 11.0000
+## quartile3    : 12.0000
+## missing      : 0.0000
+
+> print_stats(summary_stats(rawscores$QZ1))
+## minimum      : 0.0000
+## maximum      : 12.0000
+## range        : 12.0000
+## percentile10 : 6.0000
+## percentile90 : 12.0000
+## median       : 10.0000
+## average      : 9.4535
+## stdev        : 2.2448
+## quartile1    : 8.0000
+## quartile3    : 11.0000
+## missing      : 1.0000
+
+> print_stats(summary_stats(rawscores$QZ2))
+## minimum      : 0.0000
+## maximum      : 18.0000
+## range        : 18.0000
+## percentile10 : 7.0000
+## percentile90 : 18.0000
+## median       : 13.0000
+## average      : 12.6192
+## stdev        : 4.1763
+## quartile1    : 10.0000
+## quartile3    : 16.0000
+## missing      : 11.0000
+
+> print_stats(summary_stats(rawscores$QZ3))
+## minimum      : 0.0000
+## maximum      : 20.0000
+## range        : 20.0000
+## percentile10 : 7.0000
+## percentile90 : 18.0000
+## median       : 14.0000
+## average      : 13.0701
+## stdev        : 4.0933
+## quartile1    : 11.0000
+## quartile3    : 16.0000
+## missing      : 20.0000
+
+> print_stats(summary_stats(rawscores$QZ4))
+## minimum      : 0.0000
+## maximum      : 20.0000
+## range        : 20.0000
+## percentile10 : 10.0000
+## percentile90 : 20.0000
+## median       : 17.0000
+## average      : 15.9714
+## stdev        : 4.2241
+## quartile1    : 14.0000
+## quartile3    : 19.0000
+## missing      : 19.0000
+
+> print_stats(summary_stats(rawscores$EX1))
+## minimum      : 14.4000
+## maximum      : 80.0000
+## range        : 65.6000
+## percentile10 : 42.4000
+## percentile90 : 74.9600
+## median       : 64.0000
+## average      : 60.7310
+## stdev        : 12.7058
+## quartile1    : 55.2000
+## quartile3    : 69.6000
+## missing      : 0.0000
+
+> print_stats(summary_stats(rawscores$EX2))
+## minimum      : 12.6000
+## maximum      : 90.0000
+## range        : 77.4000
+## percentile10 : 41.0850
+## percentile90 : 80.4150
+## median       : 66.6000
+## average      : 63.9903
+## stdev        : 15.7235
+## quartile1    : 56.7000
+## quartile3    : 75.1500
+## missing      : 0.0000
+
+> sink()

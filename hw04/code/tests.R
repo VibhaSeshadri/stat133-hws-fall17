@@ -168,7 +168,7 @@ context("testing drop_lowest")
 test_that("drop_lowest actually drops the smallest value from a vector", {
   expect_equal(drop_lowest(c(1, 2, 3)), c(2, 3))
   expect_equal(drop_lowest(c(0, 0, 0)), c(0, 0))
-  expect_equal(drop_lowest(c(-150, 120, 40, 0)), c(120, 40, 0))
+  expect_equal(drop_lowest(c(-150, 120, 40, 0)), c(0, 40, 120))
   expect_equal(drop_lowest(c(2.9, 3, 4)), c(3, 4))
 })
 

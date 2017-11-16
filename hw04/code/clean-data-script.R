@@ -66,7 +66,7 @@ rawscores$Test2 <- rescale100(rawscores$EX2, 0, 90)
 # value dropped
 hw <- c()
 for (i in 1:nrow(rawscores)) {
-  avg_hw <- score_homework(as.numeric(rawscores[i, 1:9]))
+  avg_hw <- score_homework(as.numeric(rawscores[i, 1:9]), TRUE)
   hw <- c(hw, avg_hw)
 }
 rawscores$Homework <- hw
@@ -76,7 +76,7 @@ rawscores$Homework <- hw
 # value dropped
 qz <- c()
 for (i in 1:nrow(rawscores)) {
-  avg_qz <- score_quiz(as.numeric(rawscores[i, 11:14]))
+  avg_qz <- score_quiz(as.numeric(rawscores[i, 11:14]), TRUE)
   qz <- c(qz, avg_qz)
 }
 rawscores$Quiz <- qz
