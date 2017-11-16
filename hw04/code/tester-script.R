@@ -1,9 +1,11 @@
-####################################################
-# Title: 
-# Description:
-# Input(s):
-# Output(s):
-####################################################
+###########################################################
+# Title: Unit Test Runner
+# Description: Executes all unit tests written in Tests.R
+# Input(s): Location and File you want to sink unit test
+#           ouput to, as well as the source of functions
+#           you are testing and the unit test file.
+# Output(s): Text file test-reporter.txt
+##########################################################
 
 # test script
 library(testthat)

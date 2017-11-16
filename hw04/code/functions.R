@@ -1,9 +1,18 @@
-####################################################
-# Title: 
-# Description:
-# Input(s):
-# Output(s):
-####################################################
+########################################################
+# Title: Functions
+# Description: This file contains all of the functions
+#             Which will be used in the tests.R,
+#             tester-script.R, clean-data-script.R,
+#             and gradevis.R to clean and use the data
+#             of students scores 
+# Input(s): Varies based on function. Specified in
+#           docstring comments of functions. File
+#           as a whole does not take in any singular 
+#           input.
+# Output(s): Varies based on function. Specified in 
+#           docstring comments. File as a whole
+#           does not give any singular ouput.
+########################################################
 
 # Loading library stringr to use in print_stats
 library(stringr)
@@ -193,23 +202,22 @@ count_missing <- function(vec) {
 # the statistics which can be produced by the above
 # functions for a vector VEC
 summary_stats <- function(vec) {
-  list("minimum" = get_minimum(vec, TRUE), 
+  list("minimum" = get_minimum(vec, TRUE),
+       "percent10" = get_percentile10(vec, TRUE),
+       "quartile1" = get_quartile1(vec, TRUE),
+       "median" = get_median(vec, TRUE),
+       "mean" = get_average(vec, TRUE),
+       "quartile3" = get_quartile3(vec, TRUE),
+       "percent90" = get_percentile90(vec, TRUE),
        "maximum" = get_maximum(vec, TRUE),
        "range" = get_range(vec, TRUE) ,
-       "percentile10" = get_percentile10(vec, TRUE),
-       "percentile90" = get_percentile90(vec, TRUE),
-       "median" = get_median(vec, TRUE),
-       "average" = get_average(vec, TRUE),
        "stdev" = get_stdev(vec, TRUE),
-       "quartile1" = get_quartile1(vec, TRUE),
-       "quartile3" = get_quartile3(vec, TRUE),
        "missing" = count_missing(vec))
 }
 
 # The function print_stats returns a nicely 
 # formatted string of all of the summary_stats
-# for the input vector VEC 
-# FIX THIS FIX THIS FIX THIS
+# for the input list of summary stats LST 
 print_stats <- function(lst) {
   for (i in 1:length(lst)) {
     hash <- "## "
@@ -234,13 +242,6 @@ rescale100 <- function(vec, xmin, xmax) {
 drop_lowest <- function(vec) {
   vec <- sort(vec)
   vec[-1]
-  #min <- vec[which.min(vec)]
-  #for(i in 1:length(vec)) {
-    #if (vec[i] == min) {
-      #vec <- vec[-i]
-      #return(vec)
-    #}
-  #}
 }
 
 # The function score_homework returns the average score

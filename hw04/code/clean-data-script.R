@@ -1,9 +1,15 @@
-####################################################
-# Title: 
-# Description:
-# Input(s):
-# Output(s):
-####################################################
+#######################################################################
+# Title: Cleaning Rawscores Data
+# Description: Cleans up rawscores data by scaling
+#               certain columns as necessary and 
+#               adding columns which will make 
+#               data more comprehensive and easier 
+#               to manipulate
+# Input(s): Requires CSV file for rawscores
+# Output(s): summary-rawscores.txt, Lab-stats.txt, Homework-stats.txt, 
+#           Quiz-stats.txt, Test1-stats.txt, Test2-stats.txt, 
+#           Overall-stats.txt, summary-cleanscores.txt, cleanscores.csv
+########################################################################
 
 # Source in functions to be used
 source('functions.R')
@@ -108,7 +114,6 @@ rawscores$Overall <- overall
 grade <- c()
 for (i in 1:nrow(rawscores)) {
   overall <- rawscores$Overall[i]
-  print(overall)
   if (overall >= 0 & overall < 50) {
     grade <- c(grade, "F")
   } else if (overall >= 50 & overall < 60) {

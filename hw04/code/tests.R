@@ -1,12 +1,20 @@
-####################################################
-# Title: 
-# Description:
-# Input(s):
-# Output(s):
-####################################################
+########################################################
+# Title: Unit Tests for Functions
+# Description: This script contains all of the unit
+#               tests for all of the functions written
+#               in functions.R
+# Input(s): Uses test_that library and expect_equal().
+#           Inputs to expect_equal are call to function
+#           being tested and expected output.
+# Output(s): Indication of whether tests have been
+#           passed or not as well as Context messages
+#######################################################
 
 # Load library 'testthat' to help with writing unit tests
 library(testthat)
+
+# Source of functions to be tested
+source('functions.R')
 
 # Unit test for remove_missing to ensure that NA values
 # in vectors passed in are being removed
@@ -138,14 +146,7 @@ test_that("summary_stats returns correct stats", {
   expect_equal(summary_stats(vec)$range, 4)
   expect_equal(summary_stats(vec)$missing, 1)
   expect_equal(summary_stats(vec)$median, 3)
-  expect_equal(summary_stats(vec)$average, 3)
-})
-
-# Unit test for print_stats to ensure that summary statistics
-# are being printed in the proper format.
-context("testing print_stats")
-test_that("print_stats prints in proper format", {
-  #WRITE TESTS HERE VIBHA OKKKKKKKK
+  expect_equal(summary_stats(vec)$mean, 3)
 })
 
 # Unit test for rescale100 to ensure that all vectors
