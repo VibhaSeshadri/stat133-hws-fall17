@@ -211,19 +211,13 @@ summary_stats <- function(vec) {
 # for the input vector VEC 
 # FIX THIS FIX THIS FIX THIS
 print_stats <- function(lst) {
-  str <- cat(sprintf(" ## %s : %.4f", 
-                names(lst)[1], lst[1]), sep = "\n")
-  for (i in 2:length(lst)) {
-    if (i != length(lst)) {
-      str <- cat(str_pad(paste(str, sprintf("## %s : %.4f", 
-                                names(lst)[i], lst[i])), width = 9, side = "both", pad = " "), 
-                                sep = "\n") 
-    } else {
-      str <- cat(paste(str, sprintf("## %s : %.4f", 
-                                    names(lst)[i], lst[i])))
-    }
+  for (i in 1:length(lst)) {
+    hash <- "## "
+    names <- names(lst)[i]
+    gap_before <- paste0(rep(" ", 12 - nchar(names(lst)[i])), collapse = '')
+    value <- sprintf("%.4f", lst[i])
+    print(noquote(paste0("## ", names, gap_before, ": ", value)))
   }
-  str
 }
 
 # The function rescale100 takes in a vector VEC
