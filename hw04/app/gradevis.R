@@ -60,10 +60,10 @@ ui <- fluidPage(
                          selectInput("scaty", label =  h3("Y-Axis Variable"),
                                      choices = attributes(cleanscores)$names[1:22]),
                          sliderInput("scatOpacity", label = h3("Opacity"), min = 0, 
-                                     max = 1, value = 1)),
+                                     max = 1, value = 1),
                          radioButtons("radio", label = h3("Show Line"),
                                        choices = list("None" = 0, "lm" = 1, "loess" = 2), 
-                                       selected = 0)
+                                       selected = 0))
       ),
       
       # Show a plot of the generated distribution
