@@ -23,8 +23,8 @@ remove_missing <- function(vec) {
   vec[!is.na(vec)]
 }
 
-# The function get_minimum returns the minimum value in VEC
-# and removes NAs within VEC if NA.RM = TRUE
+# The function get_minimum returns the minimum value in numeric vector
+# VEC and removes NAs within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_minimum <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -38,8 +38,8 @@ get_minimum <- function(vec, na.rm = FALSE) {
   sort(vec)[1]
 }
 
-# The function get_maximum returns the maximum value in VEC
-# and removes NAs within VEC if NA.RM = TRUE
+# The function get_maximum returns the maximum value in numeric vector
+# VEC and removes NAs within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_maximum <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -54,7 +54,7 @@ get_maximum <- function(vec, na.rm = FALSE) {
 }
 
 # The function get_range returns the difference between
-# the maximum and minimum value in VEC and removes
+# the maximum and minimum value in numeric vector VEC and removes
 # NAs within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_range <- function(vec, na.rm = FALSE) {
@@ -68,7 +68,7 @@ get_range <- function(vec, na.rm = FALSE) {
 }
 
 # The function get_percentile10 returns the 10th
-# percentile of VEC and removes NA within VEC if NA.RM = TRUE
+# percentile of numeric vector VEC and removes NA within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_percentile10 <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -83,7 +83,7 @@ get_percentile10 <- function(vec, na.rm = FALSE) {
 }
 
 # The function get_percentile90 returns the 90th
-# percentile of VEC and removes NA  within VEC if NA.RM = TRUE
+# percentile of numeric VEC and removes NA  within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_percentile90 <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -98,7 +98,7 @@ get_percentile90 <- function(vec, na.rm = FALSE) {
 }
 
 # The function get_median returns the median
-# of VEC and removes NA within VEC if NA.RM = TRUE
+# of numeric vector VEC and removes NA within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_median <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -118,7 +118,7 @@ get_median <- function(vec, na.rm = FALSE) {
 }
 
 # The function get_average returns the mean
-# of VEC and removes NA within VEC if NA.RM = TRUE
+# of numeric vector VEC and removes NA within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_average <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -137,7 +137,7 @@ get_average <- function(vec, na.rm = FALSE) {
 }
 
 # The function get_stdev returns the stdev
-# of VEC and removes NA within VEC if NA.RM = TRUE
+# of numeric vector VEC and removes NA within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_stdev <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -157,7 +157,7 @@ get_stdev <- function(vec, na.rm = FALSE) {
 }
 
 # The function get_quartile1 returns the first
-# quartile of VEC and removes NA  within VEC if NA.RM = TRUE
+# quartile of numeric vector VEC and removes NA  within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_quartile1 <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -172,7 +172,7 @@ get_quartile1 <- function(vec, na.rm = FALSE) {
 }
 
 # The function get_quartile3 returns the third
-# quartile of VEC and removes NA  within VEC if NA.RM = TRUE
+# quartile of numeric vector VEC and removes NA  within VEC if NA.RM = TRUE
 # for the purposes of this function.
 get_quartile3 <- function(vec, na.rm = FALSE) {
   if (!is.numeric(vec)) {
@@ -200,7 +200,7 @@ count_missing <- function(vec) {
 
 # The function summary_stats returns a list of all
 # the statistics which can be produced by the above
-# functions for a vector VEC
+# functions for a numeric vector VEC
 summary_stats <- function(vec) {
   list("minimum" = get_minimum(vec, TRUE),
        "percent10" = get_percentile10(vec, TRUE),
@@ -228,7 +228,7 @@ print_stats <- function(lst) {
   }
 }
 
-# The function rescale100 takes in a vector VEC
+# The function rescale100 takes in a numeric vector VEC
 # and a min value XMIN and max value XMAX and uses
 # these min and max boundaries to rescale the 
 # inputs of VEC to be some number out of 100
@@ -236,7 +236,7 @@ rescale100 <- function(vec, xmin, xmax) {
   100 * ((vec - xmin) / (xmax - xmin))
 }
 
-# The function drop_lowest takes in a vector
+# The function drop_lowest takes in a numeric vector
 # VEC and drops the lowest value in VEC
 # and returns a vector of length one less than VEC
 drop_lowest <- function(vec) {
@@ -245,7 +245,7 @@ drop_lowest <- function(vec) {
 }
 
 # The function score_homework returns the average score
-# of the vector VEC passed in. If DROP = TRUE
+# of the numeric vector VEC passed in. If DROP = TRUE
 # the lowest value of VEC is removed before the average
 # score is computed.
 score_homework <- function(vec, drop = FALSE) {
@@ -256,7 +256,7 @@ score_homework <- function(vec, drop = FALSE) {
 }
 
 # The function score_quiz returns the average score
-# of the vector VEC passed in. If DROP = TRUE
+# of the numeric vector VEC passed in. If DROP = TRUE
 # the lowest value of VEC is removed before the average
 # score is computed.
 score_quiz <- function(vec, drop = FALSE) {

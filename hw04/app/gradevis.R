@@ -1,10 +1,10 @@
 ###########################################################
-# Title: Grade Visualizer
+# Title: Grades Visualizer
 #
 # Description: 
 #   Shiny app which includes bar chart of grade distribution,
 #   Histogram and summary statistics of each componenet of a
-#   a student's grade, and a scatterplot any two components 
+#   a student's grade, and a scatterplot of any two components 
 #   of a student's grade as well as the corresponding 
 #   correlation coefficient.
 #
@@ -118,7 +118,7 @@ server <- function(input, output) {
     category <- prop("x", as.symbol(input$histx))
     cleanscores %>% 
       ggvis(x = category, fill := "#439aca") %>% 
-      layer_histograms(stroke := '#439aca', width = input$histbin,
+      layer_histograms(stroke := 'white', width = input$histbin,
                        fillOpacity := 0.8, fillOpacity.hover := 1)
   })
   

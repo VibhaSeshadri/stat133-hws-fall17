@@ -4,7 +4,7 @@
 #               tests for all of the functions written
 #               in functions.R
 # Input(s): Uses test_that library and expect_equal().
-#           Inputs to expect_equal are call to function
+#           Inputs to expect_equal() are call to function
 #           being tested and expected output.
 # Output(s): Indication of whether tests have been
 #           passed or not as well as Context messages
@@ -115,6 +115,17 @@ test_that("stdev is returned and NAs are removed when specified", {
   expect_equal(get_stdev(c(6, 4, 2, 0, -2, NA)), NA)
   expect_equal(get_stdev(c(6, 4, 2, 0, -2, NA), TRUE), sd(c(6, 4, 2, 0, -2)))
   expect_equal(get_stdev(c(6, 4, 2, 0, NA), TRUE), sd(c(6, 4, 2, 0)))
+})
+
+# Unit test for get_quartile1 to ensure that the first quartile of
+# input vector is returned and NAs are removed when specified
+context("testing get_quartile1")
+test_that("quartile 1 is returned and NAs are removed when specified", {
+  expect_equal(get_quartile1(c(4, 3, 1, 2)), 1.75)
+  expect_equal(get_quartile1(c(0, 0, 0, 0)), 0)
+  with_na <- c(NA, NA, 1, 2, 3)
+  expect_equal(get_quartile1(with_na), NA)
+  expect_equal(get_quartile1(with_na, TRUE), 1.5)
 })
 
 # Unit test for get_quartile3 to ensure that the third quartile of
