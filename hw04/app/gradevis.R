@@ -58,7 +58,7 @@ ui <- fluidPage(
                          ),
         conditionalPanel(condition = "input.tabselected==2",
                          selectInput("histx", label =  h4("X-axis variable"),
-                                     choices = attributes(cleanscores)$names[1:22]),
+                                     choices = names(cleanscores)[1:22]),
                          sliderInput("histbin", label = h4("Bin Width"), min = 1, 
                                      max = 10, value = 10)),
         conditionalPanel(condition = "input.tabselected==3",
@@ -127,30 +127,8 @@ server <- function(input, output) {
   
   # Generating Summary Statistics display for chosen x axis
   output$summary <- renderPrint({
-    switch(input$histx,
-           "HW1" = print_stats(summary_stats(cleanscores$HW1)),
-           "HW2" = print_stats(summary_stats(cleanscores$HW2)),
-           "HW3" = print_stats(summary_stats(cleanscores$HW3)),
-           "HW4" = print_stats(summary_stats(cleanscores$HW4)),
-           "HW5" = print_stats(summary_stats(cleanscores$HW5)),
-           "HW6" = print_stats(summary_stats(cleanscores$HW6)),
-           "HW7" = print_stats(summary_stats(cleanscores$HW7)),
-           "HW8" = print_stats(summary_stats(cleanscores$HW8)),
-           "HW9" = print_stats(summary_stats(cleanscores$HW9)),
-           "ATT" = print_stats(summary_stats(cleanscores$ATT)),
-           "QZ1" = print_stats(summary_stats(cleanscores$QZ1)),
-           "QZ2" = print_stats(summary_stats(cleanscores$QZ2)),
-           "QZ3" = print_stats(summary_stats(cleanscores$QZ3)),
-           "QZ4" = print_stats(summary_stats(cleanscores$QZ4)),
-           "EX1" = print_stats(summary_stats(cleanscores$EX1)),
-           "EX2" = print_stats(summary_stats(cleanscores$EX2)),
-           "Test1" = print_stats(summary_stats(cleanscores$Test1)),
-           "Test2" = print_stats(summary_stats(cleanscores$Test2)),
-           "Homework" = print_stats(summary_stats(cleanscores$Homework)),
-           "Quiz" = print_stats(summary_stats(cleanscores$Quiz)),
-           "Lab" = print_stats(summary_stats(cleanscores$Lab)),
-           "Overall" = print_stats(summary_stats(cleanscores$Overall))
-    )
+    vec <- unlist(cleanscores[,input$histx])
+    print_stats(summary_stats(as.numeric(vec)))
   })
   
   # Creating scatterplot that goes with tab3
