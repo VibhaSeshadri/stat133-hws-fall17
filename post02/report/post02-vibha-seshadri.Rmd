@@ -10,18 +10,21 @@ output: html_document
 I'm just going to start off by saying that I am a **BIG** *Harry Potter* fan. My favorite book in the series was  *Harry Potter and the Deathly Hallows*! I loved how well J.K. Rowling tied everything in the series together with so much attention to detail and depth! That's why in this blog post, I am going to explain how we can use the methods in the `stringr` package and regex to analyze the master piece that is the text of the seventh Harry Potter book! Let's begin! 
 
 #### What exactly is regex?
-[According to the regex rdocumentation](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/regex), regex stands for "Regular Expression" and "speficies a pattern which describes a set of strings". Regex has specific syntax that is used in creating patterns for the computer to interpret and match. Take a look at [this cheatsheet](http://regexlib.com/CheatSheet.aspx?AspxAutoDetectCookieSupport=1) to learn more about regex syntax! There are many uses of Regex! [According to Rex Egg](http://www.rexegg.com/regex-uses.html), a website that contains many regex tutorials, Some examples include: getting text from a file, validating input from users into forms, searching for and replacing pages of code, using the search features of creativity software, renaming many files, and much more. 
+[According to the regex rdocumentation](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/regex), regex stands for "Regular Expression" and "speficies a pattern which describes a set of strings". Regex has specific syntax that is used in creating patterns for a computer to interpret and match. Take a look at [this cheatsheet](http://regexlib.com/CheatSheet.aspx?AspxAutoDetectCookieSupport=1) to learn more about regex syntax! There are many uses of Regex! [According to Rex Egg](http://www.rexegg.com/regex-uses.html), a website that contains many regex tutorials, Some examples include: getting text from a file, validating input from users into forms, searching for and replacing pages of code, utilizing the advanced search features of creativity software, renaming many files, and much more. 
 
 #### What exactly is `stringr`?
 `stringr` is a package in `R` that allows for easy string manipulation and pattern matching in character vectors.
-[According to the cran.r webpage on stringr](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html), `stringr` supports four types of operations: character manipulations, whitespace manipulations, locale operations (ie changing case or sorting a vector), and pattern matching functions. [According to the stringr rdocumentation](https://www.rdocumentation.org/packages/stringr/versions/1.1.0), `stringr` was created by Hadley Wickham and provides a consistent manner in working with strings because "all functions and argument names are consistent, and all functions deal with missing values in the same way." This is what allows `stringr` to suppor the piping operator (`%>%`) and use the output of one function as the input to another function.
+[According to the cran.r webpage on stringr](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html), `stringr` supports four types of operations: character manipulations, whitespace manipulations, locale operations (ie changing case or sorting a vector), and pattern matching functions. [According to the stringr rdocumentation](https://www.rdocumentation.org/packages/stringr/versions/1.1.0), `stringr` was created by Hadley Wickham and provides a consistent manner in working with strings because "all functions and argument names are consistent, and all functions deal with missing values in the same way." This is what allows `stringr` to support the piping operator (`%>%`) and use the output of one function as the input to another function.
 
-`stringr` functions are useful because they are very versatile yet conistent. They can be used to clean and manipulate text as well as find patterns in text when combined with regex. We will see all of this in the example with the text of the seventh Harry Potter book.
+If you have some experience with string manipulation using base R string functions, you might wonder why we need `stringr` since the base R functions are quite powerful already. Well, that is true, but [according to Hadley Wickham](https://journal.r-project.org/archive/2010/RJ-2010-012/RJ-2010-012.pdf) they are not consistent and "lag behind" functions available in other programming languages. `stringr` functions are very consistent, powerful, easy to learn, and more aligned with string functions available in other programing languages.
 
 #### Motivation
-So exactly why am I explaining how to use `stringr` to analyze this text? Well let's just say that I want to save you the trouble of physically analyzing words and patterns within a text file the next time you analyze text (because, that's what we do for fun, right?). Okay jokes aside, it's no secret that anyone who loves reading pays attention to the author's word choice, sentence structure, other semantic and grammar choices, and analyzes what messages those choices convey to the readers. Well the beauty of `stringr` and regex is that is allows us to pay attention to these same things, but in more detail since the combination of `stringr` and regex can go through an entire text file and find what we are looking for in a fraction of the time it would take a human to do the same thing! Using the string manipulation methods in `stringr` in combination with regex can be used in many situations, such as replacing many instances of the same word or phrase in one text file or finding a repeating pattern in a text file, without looping through every line in the text file. In R, you may be able to get away with using some vectorized operations, but in other programming languages you won't be able to do this! Luckily, regex is universal across programming languages and is a handy skill to learn to avoid looping through long pieces of text. At this point some of you may be wondering what's so bad about using loop operations or parse an entire file to do string manipulation and pattern matching? Well, [according to a post by Oana Platon on the Microsoft Developer Blog](https://blogs.msdn.microsoft.com/oanapl/2009/04/04/performance-comparison-regex-versus-string-operations/) that would work, but it's a lot more work and there's a lot more room for error. For instance, if you were trying to find every word that started with the letters "app" and then return the maximum length of a word that started with "app" you could use a loop to find these words and check if the substring from the first to third index of the words matched "app", and then you use the max function on a list of the length of such words, and return the maximum value. But what if you could skipping looking at each word individually all together? And what if you could avoid errors that arise when comparing strings that are of different lengths? This is where regex makes things easy. Consider the following example.
+So exactly why am I explaining how to use `stringr` to analyze this text? Well let's just say that I want to save you the trouble of physically analyzing words and patterns within a text file the next time you analyze text (because, that's what we do for fun, right?).Well the beauty of `stringr` and regex is that is allows us to pay attention to these same things, but in more detail since the combination of `stringr` and regex can go through an entire text file and find what we are looking for in a fraction of the time it would take a human to do the same thing! Using the string manipulation methods in `stringr` in combination with regex can be used in many situations, such as replacing many instances of the same word or phrase in one text file or finding a repeating pattern in a text file, without looping through every line in the text file. In R, you may be able to get away with using some vectorized operations, but in other programming languages you won't be able to do this! Luckily, regex is universal across programming languages and is a handy skill to learn to avoid looping through long pieces of text. At this point some of you may be wondering what's so bad about using loop operations or parse an entire file to do string manipulation and pattern matching? Well, [according to a post by Oana Platon on the Microsoft Developer Blog](https://blogs.msdn.microsoft.com/oanapl/2009/04/04/performance-comparison-regex-versus-string-operations/) that would work, but it's a lot more work and there's a lot more room for error. For instance, if you were trying to find every word that started with the letters "app" and then return the maximum length of a word that started with "app" you could use a loop to find these words and check if the substring from the first to third index of the words matched "app", and then you could use a `max` function on a list of the length of such words, and return the maximum value. But what if you could skipping looking at each word individually all together? And what if you could avoid errors that arise when comparing strings that are of different lengths? This is where regex makes things easy. Consider the following example.
 
 ```{r}
+# load stringr package
+library(stringr)
+
 # create example vector
 ex <- c("application", "broke", "cake", "", "appelate", "eat,", "apple", "apothecary", "table", "append", "thanksgiving", "apostle", "ape", "appease")
 
@@ -36,13 +39,13 @@ len <- str_length(app)
 max(len)
 ```
 
-We didn't have to loop or look at any of the elements in the character vector `ex` individually! Imagine if `ex` was as long as the text of the seventh Harry Potter book and had `r length(hp_seven)` words or `r sum(nchar(hp_seven))` characters! We would not want to look at any word individually ourselves, but rather have words that match the description we are looking for returned to us easily. That is what regex and `stringr` functions allow us to do.
+We didn't have to loop or look at any of the elements in the character vector `ex` individually! Imagine if `ex` was as long as the text of the seventh Harry Potter book and had `r sum(str_count(hp_seven, "\\w"))` words! We would not want to look at any word individually ourselves, but rather have words that match the description we are looking for returned to us easily. That is what regex and `stringr` functions allow us to do.
 
-#### Examples of stringr in action!
+#### Examples of stringr methods and regex in action!
+
+Let's first clean up the text file of *Harry Potter and the Deathly Hallows*.
+
 ```{r}
-# load stringr package
-library(stringr)
-
 # concatenate the url to get the text file
 beg <- "https://ia801309.us.archive.org/15/items/Book5TheOrderOfThePhoenix/"
 end <- "Book%207%20-%20The%20Deathly%20Hallows_djvu.txt"
@@ -65,6 +68,82 @@ hp_seven <- unlist(hp_seven)
 hp_seven <- hp_seven[str_detect(hp_seven, "")]
 ```
 
+Let's count how many times the main characters' names are mentioned in the book and view the results in a bar plot
+```{r}
+# get counts of each name
+Hermione <- sum(str_count(hp_seven, "Hermione"))
+Harry <- sum(str_count(hp_seven, "Harry"))
+Ron <- sum(str_count(hp_seven, "Ron"))
+Neville <- sum(str_count(hp_seven, "Neville"))
+Luna <- sum(str_count(hp_seven, "Luna"))
+Ginny <- sum(str_count(hp_seven, "Ginny"))
+Dumbledore <- sum(str_count(hp_seven, "Dumbledore"))
+Snape <- sum(str_count(hp_seven, "Snape"))
+Voldemort <- sum(str_count(hp_seven, "Voldemort"))
+Draco <- sum(str_count(hp_seven, "Draco"))
+
+# create a dataframe to use with ggplot2
+hp_name <- data.frame(name = c("Hermione", "Harry", "Ron", "Neville", 
+                               "Luna", "Ginny", "Dumbledore", "Snape", 
+                               "Voldemort", "Draco"),
+                      counts = c(Hermione, Harry, Ron, Neville, 
+                                 Luna, Ginny, Dumbledore, Snape,
+                                 Voldemort, Draco)
+                      )
+
+# load the ggplot2 package
+library(ggplot2)
+
+# create the ggplot
+ggplot() + 
+  geom_bar(data = hp_name,
+          aes(x = name, y = counts), stat = "identity", fill = "#f49d4b") + 
+          xlab("Character Names") + 
+          ylab("Frequency") + 
+          ggtitle("Frequency of Character Names in Deathly Hallows") +
+          theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+Now let's try and see what words start with vowels, start with consonants,
+and start with uncommon consonants!
+```{r}
+# let's count how many words start with vowels
+sum(str_count(hp_seven, "^[aeiou].*[aeiou]$"))
+
+# let's count how many words start with a v,x, or z regardless of case
+sum(str_count(hp_seven, "^[vxzVXZ].*"))
+
+# let's see which words start with an x or X
+hp_seven[str_detect(hp_seven, "^[xX].*")]
+
+# let's see if any words end with a x or
+sum(str_count(hp_seven, "$[xX]"))
+
+```
+
+Look's like no words end with the letter x, but it seem's like the name Xenophilius is the most common value which starts with x in the text! Let's see how many times the name appears in the text.
+```{r}
+# count how many times Xenophilius appears. Add the wildcard symbol after
+# Xenophilius to indicate that it does not matter if the name is followed
+# by punctuation
+sum(str_count(hp_seven, "Xenophilius."))
+```
+
+Since this is the seventh book, let's see how many words are seven letters long!
+```{r}
+# count how many words are seven letters long
+sum(str_count(hp_seven, "\\w{7}"))
+
+# see what the first 10 seven letters in the novel are
+head(hp_seven[str_detect(hp_seven, "\\w{7}")])
+```
+
+Lastly, let's find the word length of each word of book and analyze which word length is most common!
+```{r}
+
+```
+
 #### Conclusion
 #### References
 - [Where I got the Harry Potter book 7 text file from](https://archive.org/stream/Book5TheOrderOfThePhoenix/Book%207%20-%20The%20Deathly%20Hallows#page/n15/mode/2up)
@@ -74,5 +153,5 @@ hp_seven <- hp_seven[str_detect(hp_seven, "")]
 - [Uses of Regex](http://www.rexegg.com/regex-uses.html)
 - [stringr rdocumentation](https://www.rdocumentation.org/packages/stringr/versions/1.1.0),
 - [stringr documentation](https://cran.r-project.org/web/packages/stringr/stringr.pdf)
-
+- [stringr v. base R](https://journal.r-project.org/archive/2010/RJ-2010-012/RJ-2010-012.pdf)
 - [Regex and stringr basics](http://stringr.tidyverse.org/articles/regular-expressions.html)
