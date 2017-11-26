@@ -146,8 +146,6 @@ file_names <- c("Lab-stats.txt", "Homework-stats.txt", "Quiz-stats.txt",
 data <- list(rawscores$Lab, rawscores$Homework, rawscores$Quiz,
   rawscores$Test1, rawscores$Test2, rawscores$Overall)
 for (i in 1:length(file_names)) {
-  print(file_names[i])
-  print(data[i])
   sink(paste0('../output/', file_names[i]))
   print_stats(summary_stats(data[[i]]))
   sink()
