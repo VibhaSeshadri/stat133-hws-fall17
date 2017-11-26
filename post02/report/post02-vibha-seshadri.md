@@ -20,11 +20,11 @@ library(ggplot2)
 
 #### Introduction
 
-I'm just going to start off by saying that I am a **BIG** *Harry Potter* fan. My favorite book in the series was *Harry Potter and the Deathly Hallows*! I loved how well J.K. Rowling tied everything in the series together with so much attention to detail and depth! That's why in this blog post, I am going to explain how we can use the methods in the `stringr` package and regex to analyze the master piece that is the text of the seventh *Harry Potter* book! Let's begin!
+I'm just going to start off by saying that I am a **BIG** *Harry Potter* fan. My favorite book in the series was *Harry Potter and the Deathly Hallows*! I loved how well J.K. Rowling tied everything in the series together with so much attention to detail and depth! That's why in this blog post, I am going to explain how we can use regex and the methods in the `stringr` package to analyze the master piece that is the text of the seventh *Harry Potter* book! Let's begin!
 
 #### What exactly is regex?
 
-[According to the regex rdocumentation](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/regex), regex stands for "Regular Expression" and "speficies a pattern which describes a set of strings". Regex has specific syntax that is used in creating patterns for a computer to interpret and match. Take a look at [this cheatsheet](http://regexlib.com/CheatSheet.aspx?AspxAutoDetectCookieSupport=1) to learn more about regex syntax! There are many uses of Regex! [According to Rex Egg](http://www.rexegg.com/regex-uses.html), a website that contains many regex tutorials, Some examples include: getting text from a file, validating input from users into forms, searching for and replacing pages of code, utilizing the advanced search features of creativity software, renaming many files, and much more.
+[According to the regex rdocumentation](https://www.rdocumentation.org/packages/base/versions/3.4.1/topics/regex), regex stands for "Regular Expression" and "speficies a pattern which describes a set of strings." Regex has specific syntax that is used in creating patterns for a computer to interpret and match. Take a look at [this cheatsheet](http://regexlib.com/CheatSheet.aspx?AspxAutoDetectCookieSupport=1) to learn more about regex syntax! There are many uses of Regex. [According to Rex Egg](http://www.rexegg.com/regex-uses.html), a website that contains many regex tutorials, regex can be used in getting text from a file, validating input from users in forms, searching for and replacing pages of code, utilizing the advanced search features of creativity software, renaming many files, and much more.
 
 #### What exactly is `stringr`?
 
@@ -34,7 +34,11 @@ If you have some experience with string manipulation using base R string functio
 
 #### Motivation
 
-So exactly why am I explaining how to use `stringr` to analyze this text? Well let's just say that I want to save you the trouble of physically analyzing words and patterns within a text file the next time you analyze text (because, that's what we do for fun, right?). Well the beauty of `stringr` and regex is that is allows us to pay attention to these same things, but in more detail since using `stringr` in combination with regex can go through an entire text file and find what we are looking for in a fraction of the time it would take a human to do the same thing! Using the string manipulation methods in `stringr` in combination with regex can be used in many situations, such as replacing many instances of the same word or phrase in one text file or finding a repeating pattern in a text file, without looping through every line in the text file. In R, you may be able to get away with using some vectorized operations, but in other programming languages you won't be able to do this! Luckily, regex is universal across programming languages and is a handy skill to learn to avoid looping through long pieces of text. At this point some of you may be wondering what's so bad about using loop operations to parse an entire file in order to do string manipulation and pattern matching? Well, [according to a post by Oana Platon on the Microsoft Developer Blog](https://blogs.msdn.microsoft.com/oanapl/2009/04/04/performance-comparison-regex-versus-string-operations/) that would work, but it's a lot more work and there's a lot more room for error. For instance, if you were trying to find every word that started with the letters "app" and then return the maximum length of a word that started with "app" you could use a loop to go through your list of words, and check if the substring from the first to third index of the words matched "app". Then you could use a `max` function on a list of the length of such words, and return the maximum value. But what if you could skipping looking at each word individually all together? This is where regex makes things easy. Consider the following example.
+So exactly why am I explaining how to use `stringr` to analyze text? Well let's just say that I want to save you the trouble of physically analyzing words and patterns within a text file the next time you analyze text (because, that's what we do for fun, right?). Well the beauty of `stringr` and regex is that is allows us to pay attention to the same patterns we may have noticed without the aid of technology, but in more detail, as well as other patterns we may have missed.
+
+By using `stringr` in combination with regex, you can go through an entire text file and find what you are looking for in a fraction of the time it would taken you do the same thing manually! Using the string manipulation methods in `stringr` in combination with regex can be used in many situations, such as replacing many instances of the same word or phrase in one text file or finding a repeating pattern in a text file, without looping through every line in the text file. In R, you may be able to get away with using some vectorized operations on long lists of text, but in other programming languages you won't be able to do this! Luckily, regex is universal across programming languages and is a handy skill to learn to avoid looping through long pieces of text.
+
+At this point some of you may be wondering what's so bad about using loop operations to parse an entire file in order to do string manipulation and pattern matching? Well, [according to a post by Oana Platon on the Microsoft Developer Blog](https://blogs.msdn.microsoft.com/oanapl/2009/04/04/performance-comparison-regex-versus-string-operations/) that would work, but it's a lot more work and there's a lot more room for error. For instance, if you were trying to find every word that started with the letters "app" and then return the maximum length of a word that started with "app" you could use a loop to go through your list of words, and check if the substring from the first to third index of the words matched "app". Then you could use a `max` function on a list of the length of such words, and return the maximum value. But what if you could skipping looking at each word individually all together? This is where regex makes things easy. Consider the following example.
 
 ``` r
 # create example vector
@@ -60,7 +64,7 @@ We didn't have to loop or look at any of the elements in the character vector `e
 
 Follow along with the example below to learn how you can use `stringr` functions and regex to analyze the text of *Harry Potter and the Deathly Hallows*.
 
-Let's first clean up the text file of *Harry Potter and the Deathly Hallows*.
+Let's first clean up the text file of *Harry Potter and the Deathly Hallows*. Click [here](https://ia801309.us.archive.org/15/items/Book5TheOrderOfThePhoenix/Book%207%20-%20The%20Deathly%20Hallows_djvu.txt) to go to the text file. You do not need to download the file if you follow along with the below tutorial.
 
 ``` r
 # concatenate the url to get the text file
@@ -121,14 +125,21 @@ ggplot() +
 
 ![](post02-vibha-seshadri_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
 
-Now let's try and see how many words start with vowels, start with consonants, and start with uncommon consonants!
+Now let's try and see how many words start and end with lowercase vowels, start and end with anything but a vowel, and start with uncommon consonants!
 
 ``` r
-# let's count how many words start with vowels
+# let's count how many words start and end with vowels
 sum(str_count(hp_seven, "^[aeiou].*[aeiou]$"))
 ```
 
     ## [1] 2919
+
+``` r
+# let's count how many words start and end with anything but a vowel
+sum(str_count(hp_seven, "^[^aeiou].*[^aeiou]$"))
+```
+
+    ## [1] 116349
 
 ``` r
 # let's count how many words start with a v,x, or z regardless of case
@@ -268,7 +279,7 @@ What were some of the least common three letter words?
 
 ``` r
 # create a frequency table of the three letter words, sorted
-# in decreasing order
+# in increasing order
 three_tbl2 <- sort(table(three), decreasing = FALSE)
 
 # create a data frame of three letter words and their frequencies
